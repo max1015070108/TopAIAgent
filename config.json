@@ -1,0 +1,24 @@
+{
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "user": "default_user",
+    "password": "default_password",
+    "dbname": "mydb"
+  },
+  "ethereum": {
+    "rpc_url": "http://localhost:8545",
+    "chain_id": 1,
+    "contract_address": "0x..."
+  },
+  "server": {
+    "host": "localhost",
+    "port": 8080,
+    "env_mode": "development"
+  },
+  "contractaddress": {
+    "ai_models": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "ai_workerload": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "node_register": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+  }
+}
