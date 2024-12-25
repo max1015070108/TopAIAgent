@@ -6,3 +6,10 @@ register node
 privateKey: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 Transaction: 0xdf8cd8d4206f779a425c24d15b266b25f12ecdd32d791aab9079c13ecc62c534
 ```
+
+
+### 模型list
+call
+```shell
+
+```
