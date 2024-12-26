@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package network;
+
+option go_package = "/proto/network;network"; 
+
+service NetworkService {
+  rpc GetNetworks(EmptyRequest) returns (NetworkListResponse);
+}
+
+message EmptyRequest {}
+
+message Network {
+  string id = 1;
+  string name = 2;
+}
+
+message NetworkListResponse {
+  repeated Network networks = 1;
+}

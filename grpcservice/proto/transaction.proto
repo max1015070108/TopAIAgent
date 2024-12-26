@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package transaction;
+
+option go_package = "/proto/transaction;transaction"; // 根据实际情况调整路径
+
+service TransactionService {
+  rpc PerformTransaction(TransactionRequest) returns (Response);
+}
+
+message TransactionRequest {
+  string model_id = 1;
+  string amount = 2;
+}
+
+message Response {
+  string message = 1;
+  bool success = 2;
+}

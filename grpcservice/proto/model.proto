@@ -1,0 +1,48 @@
+syntax = "proto3";
+package model;
+import "google/api/annotations.proto";
+option go_package = "/proto/model;model";
+service ModelService {
+  rpc GetModels(EmptyRequest) returns (ModelListResponse){
+    option (google.api.http) = {
+      get: "/model/getModels"
+    };
+  };
+  rpc AddToNetwork(NetworkRequest) returns (Response){
+    option (google.api.http) = {
+      post: "/model/addFromNetwork"
+      body: "*"
+    };
+  };
+  rpc RemoveFromNetwork(RemoveRequest) returns (Response){
+    option (google.api.http) = {
+      post: "/model/removeFromNetwork"
+      body: "*"
+    };
+  };
+}
+
+message EmptyRequest {}
+
+message Model {
+  string id = 1;
+  string name = 2;
+}
+
+message ModelListResponse {
+  repeated Model models = 1;
+}
+
+message NetworkRequest {
+  string model_id = 1;
+  string network_id = 2;
+}
+
+message RemoveRequest {
+  string model_id = 1;
+}
+
+message Response {
+  string message = 1;
+  bool success = 2;
+}
