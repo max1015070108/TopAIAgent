@@ -37,6 +37,9 @@ func (c *Client) Close() {
 func (c *Client) GetModels(ctx context.Context) (*pb.ModelListResponse, error) {
 	return c.client.GetModels(ctx, &pb.EmptyRequest{})
 }
+func (c *Client) StreamGetModels(ctx context.Context) (pb.ModelService_StreamGetModelsClient, error) {
+	return c.client.StreamGetModels(ctx, &pb.EmptyRequest{})
+}
 
 // AddToNetwork 加入网络
 func (c *Client) AddToNetwork(ctx context.Context, modelID string, networkID string) (*pb.Response, error) {

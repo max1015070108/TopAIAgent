@@ -8,18 +8,22 @@ service ModelService {
       get: "/model/getModels"
     };
   };
+  rpc StreamGetModels(EmptyRequest) returns (stream Model);
   rpc AddToNetwork(NetworkRequest) returns (Response){
     option (google.api.http) = {
       post: "/model/addFromNetwork"
       body: "*"
     };
   };
+
+  rpc StreamAddToNetwork(NetworkRequest) returns (stream Response);
   rpc RemoveFromNetwork(RemoveRequest) returns (Response){
     option (google.api.http) = {
       post: "/model/removeFromNetwork"
       body: "*"
     };
   };
+  rpc StreamRemoveFromNetwork(RemoveRequest) returns (stream Response);
 }
 
 message EmptyRequest {}

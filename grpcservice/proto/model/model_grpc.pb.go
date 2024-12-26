@@ -19,9 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ModelService_GetModels_FullMethodName         = "/model.ModelService/GetModels"
-	ModelService_AddToNetwork_FullMethodName      = "/model.ModelService/AddToNetwork"
-	ModelService_RemoveFromNetwork_FullMethodName = "/model.ModelService/RemoveFromNetwork"
+	ModelService_GetModels_FullMethodName               = "/model.ModelService/GetModels"
+	ModelService_StreamGetModels_FullMethodName         = "/model.ModelService/StreamGetModels"
+	ModelService_AddToNetwork_FullMethodName            = "/model.ModelService/AddToNetwork"
+	ModelService_StreamAddToNetwork_FullMethodName      = "/model.ModelService/StreamAddToNetwork"
+	ModelService_RemoveFromNetwork_FullMethodName       = "/model.ModelService/RemoveFromNetwork"
+	ModelService_StreamRemoveFromNetwork_FullMethodName = "/model.ModelService/StreamRemoveFromNetwork"
 )
 
 // ModelServiceClient is the client API for ModelService service.
@@ -29,8 +32,11 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ModelServiceClient interface {
 	GetModels(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*ModelListResponse, error)
+	StreamGetModels(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Model], error)
 	AddToNetwork(ctx context.Context, in *NetworkRequest, opts ...grpc.CallOption) (*Response, error)
+	StreamAddToNetwork(ctx context.Context, in *NetworkRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Response], error)
 	RemoveFromNetwork(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*Response, error)
+	StreamRemoveFromNetwork(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Response], error)
 }
 
 type modelServiceClient struct {
@@ -51,6 +57,25 @@ func (c *modelServiceClient) GetModels(ctx context.Context, in *EmptyRequest, op
 	return out, nil
 }
 
+func (c *modelServiceClient) StreamGetModels(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Model], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &ModelService_ServiceDesc.Streams[0], ModelService_StreamGetModels_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[EmptyRequest, Model]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ModelService_StreamGetModelsClient = grpc.ServerStreamingClient[Model]
+
 func (c *modelServiceClient) AddToNetwork(ctx context.Context, in *NetworkRequest, opts ...grpc.CallOption) (*Response, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Response)
@@ -60,6 +85,25 @@ func (c *modelServiceClient) AddToNetwork(ctx context.Context, in *NetworkReques
 	}
 	return out, nil
 }
+
+func (c *modelServiceClient) StreamAddToNetwork(ctx context.Context, in *NetworkRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Response], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &ModelService_ServiceDesc.Streams[1], ModelService_StreamAddToNetwork_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[NetworkRequest, Response]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ModelService_StreamAddToNetworkClient = grpc.ServerStreamingClient[Response]
 
 func (c *modelServiceClient) RemoveFromNetwork(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*Response, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
@@ -71,13 +115,35 @@ func (c *modelServiceClient) RemoveFromNetwork(ctx context.Context, in *RemoveRe
 	return out, nil
 }
 
+func (c *modelServiceClient) StreamRemoveFromNetwork(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Response], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &ModelService_ServiceDesc.Streams[2], ModelService_StreamRemoveFromNetwork_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[RemoveRequest, Response]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ModelService_StreamRemoveFromNetworkClient = grpc.ServerStreamingClient[Response]
+
 // ModelServiceServer is the server API for ModelService service.
 // All implementations must embed UnimplementedModelServiceServer
 // for forward compatibility.
 type ModelServiceServer interface {
 	GetModels(context.Context, *EmptyRequest) (*ModelListResponse, error)
+	StreamGetModels(*EmptyRequest, grpc.ServerStreamingServer[Model]) error
 	AddToNetwork(context.Context, *NetworkRequest) (*Response, error)
+	StreamAddToNetwork(*NetworkRequest, grpc.ServerStreamingServer[Response]) error
 	RemoveFromNetwork(context.Context, *RemoveRequest) (*Response, error)
+	StreamRemoveFromNetwork(*RemoveRequest, grpc.ServerStreamingServer[Response]) error
 	mustEmbedUnimplementedModelServiceServer()
 }
 
@@ -91,11 +157,20 @@ type UnimplementedModelServiceServer struct{}
 func (UnimplementedModelServiceServer) GetModels(context.Context, *EmptyRequest) (*ModelListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetModels not implemented")
 }
+func (UnimplementedModelServiceServer) StreamGetModels(*EmptyRequest, grpc.ServerStreamingServer[Model]) error {
+	return status.Errorf(codes.Unimplemented, "method StreamGetModels not implemented")
+}
 func (UnimplementedModelServiceServer) AddToNetwork(context.Context, *NetworkRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddToNetwork not implemented")
 }
+func (UnimplementedModelServiceServer) StreamAddToNetwork(*NetworkRequest, grpc.ServerStreamingServer[Response]) error {
+	return status.Errorf(codes.Unimplemented, "method StreamAddToNetwork not implemented")
+}
 func (UnimplementedModelServiceServer) RemoveFromNetwork(context.Context, *RemoveRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveFromNetwork not implemented")
+}
+func (UnimplementedModelServiceServer) StreamRemoveFromNetwork(*RemoveRequest, grpc.ServerStreamingServer[Response]) error {
+	return status.Errorf(codes.Unimplemented, "method StreamRemoveFromNetwork not implemented")
 }
 func (UnimplementedModelServiceServer) mustEmbedUnimplementedModelServiceServer() {}
 func (UnimplementedModelServiceServer) testEmbeddedByValue()                      {}
@@ -136,6 +211,17 @@ func _ModelService_GetModels_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ModelService_StreamGetModels_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(EmptyRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ModelServiceServer).StreamGetModels(m, &grpc.GenericServerStream[EmptyRequest, Model]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ModelService_StreamGetModelsServer = grpc.ServerStreamingServer[Model]
+
 func _ModelService_AddToNetwork_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(NetworkRequest)
 	if err := dec(in); err != nil {
@@ -154,6 +240,17 @@ func _ModelService_AddToNetwork_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ModelService_StreamAddToNetwork_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(NetworkRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ModelServiceServer).StreamAddToNetwork(m, &grpc.GenericServerStream[NetworkRequest, Response]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ModelService_StreamAddToNetworkServer = grpc.ServerStreamingServer[Response]
+
 func _ModelService_RemoveFromNetwork_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RemoveRequest)
 	if err := dec(in); err != nil {
@@ -171,6 +268,17 @@ func _ModelService_RemoveFromNetwork_Handler(srv interface{}, ctx context.Contex
 	}
 	return interceptor(ctx, in, info, handler)
 }
+
+func _ModelService_StreamRemoveFromNetwork_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(RemoveRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ModelServiceServer).StreamRemoveFromNetwork(m, &grpc.GenericServerStream[RemoveRequest, Response]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ModelService_StreamRemoveFromNetworkServer = grpc.ServerStreamingServer[Response]
 
 // ModelService_ServiceDesc is the grpc.ServiceDesc for ModelService service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -192,6 +300,22 @@ var ModelService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ModelService_RemoveFromNetwork_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "StreamGetModels",
+			Handler:       _ModelService_StreamGetModels_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "StreamAddToNetwork",
+			Handler:       _ModelService_StreamAddToNetwork_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "StreamRemoveFromNetwork",
+			Handler:       _ModelService_StreamRemoveFromNetwork_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "proto/model.proto",
 }

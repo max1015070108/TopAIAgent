@@ -28,6 +28,25 @@ func (s *Server) GetModels(ctx context.Context, req *pb.EmptyRequest) (*pb.Model
 	return &pb.ModelListResponse{Models: models}, nil
 }
 
+func (s *Server) StreamGetModels(req *pb.EmptyRequest, stream pb.ModelService_StreamGetModelsServer) error {
+	var dbModels []database.Model
+	if err := database.DB.Find(&dbModels).Error; err != nil {
+		return err
+	}
+
+	for _, dbModel := range dbModels {
+		model := &pb.Model{
+			Id:   dbModel.ID,
+			Name: dbModel.Name,
+		}
+		if err := stream.Send(model); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (s *Server) AddToNetwork(ctx context.Context, req *pb.NetworkRequest) (*pb.Response, error) {
 	networkModel := database.NetworkModel{
 		ModelID:   req.ModelId,
