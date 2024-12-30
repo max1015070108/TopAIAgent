@@ -14,6 +14,12 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
+const (
+	// DefaultKeyDir 默认密钥目录
+	DefaultKeyDir = "./keystore"
+	Passphrase    = "123456"
+)
+
 // WalletManager 钱包管理结构体
 type WalletManager struct {
 	ks     *keystore.KeyStore
@@ -109,19 +115,17 @@ func (wm *WalletManager) ListWalletAddresses() []string {
 	return addresses
 }
 
-
-
 // 方法3：通过地址查找获取 Account
 func (wm *WalletManager) FindAccount(address common.Address) (accounts.Account, error) {
-    // 获取所有账户
-    allAccounts := wm.ks.Accounts()
+	// 获取所有账户
+	allAccounts := wm.ks.Accounts()
 
-    // 查找匹配地址的账户
-    for _, account := range allAccounts {
-        if account.Address == address {
-            return account, nil
-        }
-    }
+	// 查找匹配地址的账户
+	for _, account := range allAccounts {
+		if account.Address == address {
+			return account, nil
+		}
+	}
 
-    return accounts.Account{}, fmt.Errorf("account not found for address: %s", address.Hex())
+	return accounts.Account{}, fmt.Errorf("account not found for address: %s", address.Hex())
 }

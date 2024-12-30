@@ -13,15 +13,20 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/topaiagent/con_manager/AIModels"
 	"github.com/topaiagent/con_manager/AIWorkload"
+	"github.com/topaiagent/con_manager/NodesGovernance"
 	"github.com/topaiagent/con_manager/NodesRegistry"
 	"github.com/topaiagent/config"
+	"github.com/topaiagent/wallet"
 )
 
 type ConManager struct {
-	Client        *ethclient.Client
-	AIModels      *AIModels.AIModels
-	AIWorkload    *AIWorkload.AIWorkload
-	NodesRegistry *NodesRegistry.NodesRegistry
+	Client          *ethclient.Client
+	AIModels        *AIModels.AIModels
+	AIWorkload      *AIWorkload.AIWorkload
+	NodesRegistry   *NodesRegistry.NodesRegistry
+	NodesGovernance *NodesGovernance.NodesGovernance
+	//add wallet
+	Wallet wallet.WalletManager
 }
 
 func NewConManager(url string) (*ConManager, error) {
@@ -37,9 +42,48 @@ func NewConManager(url string) (*ConManager, error) {
 		return nil, err
 	}
 
-	fmt.Printf(".... %+v\n", confData.ContractAddress)
+	fmt.Printf("data is %+v", confData)
+	//wallet manager
+	walletMan := wallet.NewWalletManager(wallet.DefaultKeyDir)
+	accountWallet, err := walletMan.CreateWallet(wallet.Passphrase)
+	if err != nil {
+		return nil, err
+	}
 
-	return &ConManager{Client: client}, nil
+	fmt.Printf(".... %+v\n", accountWallet)
+
+	// AIModels contract
+	aim_contract, err := AIModels.NewAIModels(common.HexToAddress(confData.ContractAddress.AIModels), client)
+	if err != nil {
+		return nil, err
+	}
+
+	// AIWorkload contract
+	aiw_contract, err := AIWorkload.NewAIWorkload(common.HexToAddress(confData.ContractAddress.AIWorkerload), client)
+
+	if err != nil {
+		return nil, err
+	}
+
+	nodes_registry, err := NodesRegistry.NewNodesRegistry(common.HexToAddress(confData.ContractAddress.NodeRegister), client)
+
+	if err != nil {
+		return nil, err
+	}
+
+	Nodes_governance, err := NodesGovernance.NewNodesGovernance(common.HexToAddress(confData.ContractAddress.NodesGovernance), client)
+	if err != nil {
+		return nil, err
+	}
+
+	return &ConManager{
+		Client:          client,
+		Wallet:          *walletMan,
+		AIModels:        aim_contract,
+		AIWorkload:      aiw_contract,
+		NodesRegistry:   nodes_registry,
+		NodesGovernance: Nodes_governance,
+	}, nil
 }
 
 func CreateLatestAuth(client *ethclient.Client, privateKey *ecdsa.PrivateKey, contract string) (*bind.TransactOpts, error) {

@@ -33,9 +33,10 @@ type Config struct {
 	} `json:"server"`
 
 	ContractAddress struct {
-		AIModels     string `json:"ai_models" env:"CONTRACT_AI_MODELS"`
-		AIWorkerload string `json:"ai_workerload" env:"CONTRACT_AI_WORKERLOAD"`
-		NodeRegister string `json:"node_register" env:"CONTRACT_NODE_REGISTER"`
+		AIModels        string `json:"ai_models" env:"CONTRACT_AI_MODELS"`
+		AIWorkerload    string `json:"ai_workerload" env:"CONTRACT_AI_WORKERLOAD"`
+		NodeRegister    string `json:"node_register" env:"CONTRACT_NODE_REGISTER"`
+		NodesGovernance string `json:"nodes_governance" env:"CONTRACT_NODES_GOVERNANCE"`
 	} `json:"contractaddress"`
 }
 
@@ -157,6 +158,10 @@ func (cl *ConfigLoader) overrideWithEnv(config *Config) error {
 	}
 	if addr := os.Getenv("CONTRACT_NODE_REGISTER"); addr != "" {
 		config.ContractAddress.NodeRegister = addr
+	}
+
+	if addr := os.Getenv("CONTRACT_NODES_GOVERNANCE"); addr != "" {
+		config.ContractAddress.NodesGovernance = addr
 	}
 
 	return nil
