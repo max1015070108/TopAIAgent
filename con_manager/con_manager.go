@@ -27,6 +27,7 @@ type ConManager struct {
 	NodesGovernance *NodesGovernance.NodesGovernance
 	//add wallet
 	Wallet wallet.WalletManager
+	Conf   *config.Config
 }
 
 func NewConManager(url string) (*ConManager, error) {
@@ -83,6 +84,7 @@ func NewConManager(url string) (*ConManager, error) {
 		AIWorkload:      aiw_contract,
 		NodesRegistry:   nodes_registry,
 		NodesGovernance: Nodes_governance,
+		Conf:            confData,
 	}, nil
 }
 
@@ -176,10 +178,4 @@ func getBaseFee(client *ethclient.Client) (*big.Int, error) {
 		return big.NewInt(0), nil
 	}
 	return header.BaseFee, nil
-}
-
-// ==========================AIModels===============================
-func (c *ConManager) GetNodeDeployment(opts *bind.CallOpts, contractAddr common.Address) (string, error) {
-	// 实现合约调用逻辑
-	return "", nil
 }

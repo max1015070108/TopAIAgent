@@ -1,16 +1,26 @@
 package con_manager
 
 import (
+	"math/big"
+
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/topaiagent/con_manager/AIModels"
 )
 
-func (c *ConManager) GetAIModelContract(contract string, client *ethclient.Client) (*AIModels.AIModels, error) {
+func (c *ConManager) GetNodeDeployment(model_addrss string) ([]*big.Int, error) {
 
-	aim_contract, err := AIModels.NewAIModels(common.HexToAddress(contract), client)
+	nodes_deploys, err := c.AIModels.GetNodeDeployment(&bind.CallOpts{}, common.HexToAddress(model_addrss))
 	if err != nil {
 		return nil, err
 	}
-	return aim_contract, nil
+	return nodes_deploys, nil
+}
+
+func (c *ConManager) GetModelDeploymentMap(modelId *big.Int) ([]common.Address, error) {
+
+	nodes_deploys, err := c.AIModels.GetModelDistribution(&bind.CallOpts{}, modelId)
+	if err != nil {
+		return nil, err
+	}
+	return nodes_deploys, nil
 }

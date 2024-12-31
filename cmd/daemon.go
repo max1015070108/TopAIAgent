@@ -1,8 +1,7 @@
 package cmd
 
 import (
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/topaiagent/con_manager"
 	"github.com/urfave/cli/v2"
 )
 
@@ -30,14 +29,12 @@ var DaemonCommand = &cli.Command{
 		},
 	},
 	Action: func(c *cli.Context) error {
-
-		conAddress := common.HexToAddress(c.String("contractaddress"))
-
-		client, err := ethclient.Dial(c.String("rpc"))
+		_, err := con_manager.NewConManager(c.String("rpc"))
 		if err != nil {
 			return err
 		}
 
+		// conMan.AIModels.FilterUploadModeled(&bind.FilterOpts{}, modelId []*big.Int, uploader []common.Address)
 		// nodereg, err := NodesRegistry.NewNodesRegistry(conAddress, client)
 		// if err != nil {
 		// 	return err
