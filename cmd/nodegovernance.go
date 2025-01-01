@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/topaiagent/con_manager"
 	"github.com/urfave/cli/v2"
 )
@@ -50,29 +51,54 @@ var NodeGovernanceInitCmd = &cli.Command{
 		}
 
 		identifiers := c.StringSlice("identifiers")
-		wallets := c.StringSlice("identifiers")
+		identifiersAddr := []common.Address{}
+		for _, value := range identifiers {
+
+			fmt.Printf("if is....%+v\n", value)
+
+			identifiersAddr = append(identifiersAddr, common.HexToAddress(value))
+		}
+		// fmt.Println(value)
+		// wallets := c.StringSlice("identifiers")
 		alias_identifiers := []string{"11111111111111111", "21111111111111111"}
 		gpuTypes := [][]string{{"A100", "V100"}, {"A100", "V100"}}
-		gpuNums := [][]int{{2, 3}, {2, 3}}
+		gpuNums := [][]*big.Int{
+			{
+				big.NewInt(2), big.NewInt(3)}, {big.NewInt(2), big.NewInt(3)},
+		}
 
+		ROUND_DURATION_TIME := big.NewInt(3600)
 
-		wallets
-		for _,addr :=
-		auth, err := con_manager.CreateLatestAuth(client, privateKeyECDSA, c.String("address"))
+		fmt.Println("current address...", identifiersAddr[0])
+		privateKeyECDSA, err := conMan.GetPrivateKeyByAddr(identifiersAddr[0])
+		if err != nil {
+			return err
+		}
+		auth, err := con_manager.CreateLatestAuth(conMan.Client, privateKeyECDSA, c.String("address"))
 
+		if err != nil {
+			return err
+		}
 
-		auth := conMan.
+		// auth := conMan.
 		// conMan.A
-		addrlist, err := conMan.NodesGovernance.NodesGovernanceInitialize(
+		tx, err := conMan.NodesGovernance.NodesGovernanceInitialize(
 
-			opts *bind.TransactOpts, _identifiers []common.Address, _aliasIdentifiers []string, _walletAccounts []common.Address, _gpuTypes [][]string, _gpuNums [][]*big.Int, _allocator common.Address, _roundDurationTime *big.Int
+			auth,
+			identifiersAddr,
+			alias_identifiers,
+			identifiersAddr,
+			gpuTypes,
+			gpuNums,
+			identifiersAddr[0],
+			ROUND_DURATION_TIME,
 		)
 
 		if err != nil {
 			return nil
 		}
 
-		fmt.Println(":\n%+v", addrlist)
+		fmt.Println("%+v\n", tx.Hash().Hex())
 		return nil
 
 	},

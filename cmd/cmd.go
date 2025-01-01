@@ -8,4 +8,5 @@ var CommandSum = []*cli.Command{
 	AIModelCommand,
 	PingTestCmd,
 	HeadBlockCmd,
+	NodeGovernanceCmd,
 }

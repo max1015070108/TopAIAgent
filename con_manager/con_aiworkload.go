@@ -1,6 +1,7 @@
 package con_manager
 
 import (
+	"crypto/ecdsa"
 	"fmt"
 	"math/big"
 
@@ -60,4 +61,35 @@ func (c *ConManager) GetAIModelContract(
 
 	// return aim_contract, nil
 	return transaction.Hash().Hex(), nil
+}
+
+// retrieve private key
+
+func (c *ConManager) GetPrivateKeyByAddr(addr common.Address) (*ecdsa.PrivateKey, error) {
+
+	// comAddr := common.HexToAddress(addr)
+
+	aacount, err := c.Wallet.FindAccount(addr)
+	if err != nil {
+		return nil, err
+	}
+
+	err = c.Wallet.UnlockWallet(aacount, "123456")
+	if err != nil {
+		return nil, err
+	}
+
+	privateKey, err := c.Wallet.ExportPrivateKey(aacount, "123456")
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("privateKey: %v\n", privateKey)
+	//get addr private from keystore
+	privateKeyECDSA, err := crypto.HexToECDSA(privateKey[2:])
+	if err != nil {
+		return nil, err
+	}
+
+	return privateKeyECDSA, nil
 }

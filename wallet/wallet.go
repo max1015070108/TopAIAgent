@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/big"
 	"os"
+	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
@@ -122,7 +123,7 @@ func (wm *WalletManager) FindAccount(address common.Address) (accounts.Account, 
 
 	// 查找匹配地址的账户
 	for _, account := range allAccounts {
-		if account.Address == address {
+		if strings.EqualFold(account.Address.Hex(), address.Hex()) {
 			return account, nil
 		}
 	}
