@@ -5,7 +5,7 @@ import "github.com/urfave/cli/v2"
 var CommandSum = []*cli.Command{
 	WalletCommand,
 	RegisterCommand,
-	AIModelCommand,
+	AIModelCommands,
 	PingTestCmd,
 	HeadBlockCmd,
 	NodeGovernanceCmd,

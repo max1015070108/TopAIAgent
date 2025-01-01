@@ -37,7 +37,7 @@ func NewConManager(url string) (*ConManager, error) {
 	}
 
 	//load config file
-	config := config.NewConfigLoader("config.json", ".env")
+	config := config.NewConfigLoader("./config.json", ".env")
 	confData, err := config.Load()
 	if err != nil {
 		return nil, err
@@ -45,7 +45,11 @@ func NewConManager(url string) (*ConManager, error) {
 
 	fmt.Printf("data is %+v", confData)
 	//wallet manager
-	walletMan := wallet.NewWalletManager(wallet.DefaultKeyDir)
+
+	if confData.Ethereum.KeystoreDir == "" {
+		confData.Ethereum.KeystoreDir = wallet.DefaultKeyDir
+	}
+	walletMan := wallet.NewWalletManager(confData.Ethereum.KeystoreDir)
 	accountWallet, err := walletMan.CreateWallet(wallet.Passphrase)
 	if err != nil {
 		return nil, err

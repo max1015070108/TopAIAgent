@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"context"
 	"fmt"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/topaiagent/con_manager"
@@ -98,7 +100,16 @@ var NodeGovernanceInitCmd = &cli.Command{
 			return nil
 		}
 
-		fmt.Println("%+v\n", tx.Hash().Hex())
+		fmt.Printf("%+v\n", tx.Hash().Hex())
+
+		time.Sleep(5 * time.Second)
+		recipt, err := conMan.Client.TransactionReceipt(context.Background(), tx.Hash())
+
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("recipt:%+v", recipt)
 		return nil
 
 	},

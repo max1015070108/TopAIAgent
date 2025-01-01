@@ -24,6 +24,7 @@ type Config struct {
 		PrivateKey      string `json:"private_key" env:"ETH_PRIVATE_KEY"`
 		ChainID         int64  `json:"chain_id" env:"ETH_CHAIN_ID"`
 		ContractAddress string `json:"contract_address" env:"ETH_CONTRACT_ADDRESS"`
+		KeystoreDir     string `json:"keystoredir" env:"ETH_KEYSTORE_DIR"`
 	} `json:"ethereum"`
 
 	Server struct {
@@ -135,6 +136,9 @@ func (cl *ConfigLoader) overrideWithEnv(config *Config) error {
 	if addr := os.Getenv("ETH_CONTRACT_ADDRESS"); addr != "" {
 		config.Ethereum.ContractAddress = addr
 	}
+	if dir := os.Getenv("ETH_KEYSTORE_DIR"); dir != "" {
+		config.Ethereum.KeystoreDir = dir
+	}
 
 	// Server overrides
 	if host := os.Getenv("SERVER_HOST"); host != "" {
@@ -201,29 +205,30 @@ func (cl *ConfigLoader) validateConfig(config *Config) error {
 func Example() {
 	// config.json 示例内容
 	jsonConfig := `{
-        "database": {
-            "host": "localhost",
-            "port": 5432,
-            "user": "default_user",
-            "password": "default_password",
-            "dbname": "mydb"
-        },
-        "ethereum": {
-            "rpc_url": "http://localhost:8545",
-            "chain_id": 1,
-            "contract_address": "0x..."
-        },
-        "server": {
-            "host": "localhost",
-            "port": 8080,
-            "env_mode": "development"
-        },
-        "contractaddress": {
-                    "ai_models": "0x...",
-                    "ai_workerload": "0x...",
-                    "node_register": "0x..."
-                }
-    }`
+								"database": {
+												"host": "localhost",
+												"port": 5432,
+												"user": "default_user",
+												"password": "default_password",
+												"dbname": "mydb"
+								},
+								"ethereum": {
+												"rpc_url": "http://localhost:8545",
+												"chain_id": 1,
+												"contract_address": "0x...",
+												"keystoredir": "~/.config/config.json"
+								},
+								"server": {
+												"host": "localhost",
+												"port": 8080,
+												"env_mode": "development"
+								},
+								"contractaddress": {
+																				"ai_models": "0x...",
+																				"ai_workerload": "0x...",
+																				"node_register": "0x..."
+																}
+				}`
 
 	// 创建临时配置文件
 	tmpfile, err := os.CreateTemp("", "config*.json")
