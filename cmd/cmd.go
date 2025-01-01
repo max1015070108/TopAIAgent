@@ -6,4 +6,6 @@ var CommandSum = []*cli.Command{
 	WalletCommand,
 	RegisterCommand,
 	AIModelCommand,
+	PingTestCmd,
+	HeadBlockCmd,
 }

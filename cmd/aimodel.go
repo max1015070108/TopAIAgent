@@ -8,6 +8,46 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var AIModelCommands = &cli.Command{
+	Name:  "aimodel",
+	Usage: "aimodel command to operate the contract",
+	Subcommands: []*cli.Command{
+		AIModelCommand,
+	},
+	// Flags: []cli.Flag{
+	// 	&cli.StringFlag{
+	// 		Name:     "config",
+	// 		Aliases:  []string{"c"}, // 命令简写
+	// 		Usage:    "config path",
+	// 		Value:    "~/.config/config.json",
+	// 		Required: false,
+	// 	},
+	// 	&cli.StringFlag{
+	// 		Name:     "rpc",
+	// 		Usage:    "blockchain rpc url",
+	// 		Required: true,
+	// 	},
+	// },
+	// Action: func(c *cli.Context) error {
+
+	// 	conMan, err := con_manager.NewConManager(c.String("rpc"))
+	// 	if err != nil {
+	// 		return err
+	// 	}
+
+	// 	addrlist, err := conMan.GetModelDeploymentMap(
+	// 		big.NewInt(1000),
+	// 	)
+
+	// 	if err != nil {
+	// 		return nil
+	// 	}
+
+	// 	fmt.Println(":\n%+v", addrlist)
+	// 	return nil
+	// },
+}
+
 var AIModelCommand = &cli.Command{
 
 	Name:  "aimodel",
@@ -24,18 +64,6 @@ var AIModelCommand = &cli.Command{
 			Name:     "rpc",
 			Usage:    "blockchain rpc url",
 			Required: true,
-		},
-		&cli.StringFlag{
-			Name:     "keystore",
-			Usage:    "topaiagent keystore",
-			Value:    "~/.topaiagent",
-			Required: false,
-		},
-		&cli.StringFlag{
-			Name:     "password",
-			Usage:    "password for the wallet",
-			Value:    "101507",
-			Required: false,
 		},
 	},
 	Action: func(c *cli.Context) error {
@@ -54,54 +82,58 @@ var AIModelCommand = &cli.Command{
 		}
 
 		fmt.Println(":\n%+v", addrlist)
+		return nil
+	},
+}
 
-		// conAddress := common.HexToAddress(c.String("contractaddress"))
+var NodeInitialCommand = &cli.Command{
 
-		// client, err := ethclient.Dial(c.String("rpc"))
-		// if err != nil {
-		// 	return err
-		// }
+	Name:  "nodesinitial",
+	Usage: "nodesinitial command to initial the codes",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:     "config",
+			Aliases:  []string{"c"}, // 命令简写
+			Usage:    "config path",
+			Value:    "~/.config/config.json",
+			Required: false,
+		},
+		&cli.StringFlag{
+			Name:     "rpc",
+			Usage:    "blockchain rpc url",
+			Required: true,
+		},
 
-		// walletMan := wallet.NewWalletManager(c.String("keystore"))
+		//address string array
+		&cli.StringSliceFlag{
+			Name:    "identifiers",
+			Aliases: []string{"if"},
+			Usage:   "address slice for that",
+			Value:   cli.NewStringSlice("0xc4ab424f86c9c9bafdc02b2d3fe0d97950c7dd17", "0x27763c1dafd6704223b286643b9ec596213d41fd"),
+		},
+	},
+	Action: func(c *cli.Context) error {
 
-		// //unlock wallet
-		// account := common.HexToAddress(c.String("address"))
+		conMan, err := con_manager.NewConManager(c.String("rpc"))
+		if err != nil {
+			return err
+		}
 
-		// aacount, err := walletMan.FindAccount(account)
-		// if err != nil {
-		// 	return err
-		// }
+		identifiers := c.StringSlice("identifiers")
+		wallets := c.StringSlice("identifiers")
+		alias_identifiers := []string{"11111111111111111", "21111111111111111"}
+		gpuTypes := [][]string{{"A100", "V100"}, {"A100", "V100"}}
+		gpuNums := [][]int{{2, 3}, {2, 3}}
 
-		// err = walletMan.UnlockWallet(aacount, c.String("password"))
-		// if err != nil {
-		// 	return err
-		// }
+		addrlist, err := conMan.GetModelDeploymentMap(
+			big.NewInt(1000),
+		)
 
-		// privateKey, err := walletMan.ExportPrivateKey(aacount, c.String("password"))
-		// if err != nil {
-		// 	return err
-		// }
+		if err != nil {
+			return nil
+		}
 
-		// fmt.Printf("privateKey: %v\n", privateKey)
-		// //get addr private from keystore
-		// privateKeyECDSA, err := crypto.HexToECDSA(privateKey[2:])
-		// if err != nil {
-		// 	return err
-		// }
-		// auth, err := con_manager.CreateLatestAuth(client, privateKeyECDSA, c.String("address"))
-
-		// nodereg, err := NodesRegistry.NewNodesRegistry(conAddress, client)
-		// if err != nil {
-		// 	return err
-		// }
-
-		// transaction, err := nodereg.RegisterNode(auth, account, "", []string{""}, []*big.Int{big.NewInt(1)})
-		// if err != nil {
-		// 	return err
-		// }
-
-		// fmt.Printf("Transaction: %v\n", transaction.Hash().Hex())
-
+		fmt.Println(":\n%+v", addrlist)
 		return nil
 	},
 }

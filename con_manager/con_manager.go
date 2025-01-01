@@ -179,3 +179,66 @@ func getBaseFee(client *ethclient.Client) (*big.Int, error) {
 	}
 	return header.BaseFee, nil
 }
+
+func (c *ConManager) GetLastEpoch() (struct {
+	TimeStamp uint64
+	Hash      string
+}, error) {
+
+	headInfo, err := c.Client.HeaderByNumber(context.Background(), nil)
+	if err != nil {
+		return struct {
+			TimeStamp uint64
+			Hash      string
+		}{}, err
+	}
+	return struct {
+		TimeStamp uint64
+		Hash      string
+	}{
+		TimeStamp: headInfo.Time,
+		Hash:      headInfo.Hash().Hex(),
+	}, nil
+}
+
+func (c *ConManager) GetEpochByEpochId(id int64) (struct {
+	TimeStamp uint64
+	Hash      string
+}, error) {
+
+	headInfo, err := c.Client.HeaderByNumber(context.Background(), big.NewInt(id))
+	if err != nil {
+		return struct {
+			TimeStamp uint64
+			Hash      string
+		}{}, err
+	}
+	return struct {
+		TimeStamp uint64
+		Hash      string
+	}{
+		TimeStamp: headInfo.Time,
+		Hash:      headInfo.Hash().Hex(),
+	}, nil
+}
+
+// func (c *ConManager) GetEpochByEpochId(id int64) (struct {
+// 	TimeStamp uint64
+// 	Hash      string
+// }, error) {
+
+// 	headInfo, err := c.Client.HeaderByNumber(context.Background(), big.NewInt(id))
+// 	if err != nil {
+// 		return struct {
+// 			TimeStamp uint64
+// 			Hash      string
+// 		}{}, err
+// 	}
+// 	return struct {
+// 		TimeStamp uint64
+// 		Hash      string
+// 	}{
+// 		TimeStamp: headInfo.Time,
+// 		Hash:      headInfo.Hash().Hex(),
+// 	}, nil
+// }

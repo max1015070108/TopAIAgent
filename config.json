@@ -17,9 +17,9 @@
     "env_mode": "development"
   },
   "contractaddress": {
-    "ai_models": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-    "ai_workerload": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    "node_register": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "ai_models": "0xF19EbE6ea4d3101Fa01A0284028C0b4c6577e78F",
+    "ai_workerload": "0xc556AceddA9a3B3FC98656De6a47946E2feFa5f7",
+    "node_register": "0x13554fecD6F3f4722cC23118329BF8d58AF2F003",
     "nodes_governance": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
   }
 }
