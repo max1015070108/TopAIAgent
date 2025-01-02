@@ -124,7 +124,7 @@ func (wm *WalletManager) FindAccount(address common.Address) (accounts.Account, 
 	// 查找匹配地址的账户
 	for _, account := range allAccounts {
 
-		fmt.Printf("%v<=>%v\n", address.Hex(), account.Address.Hex())
+		// fmt.Printf("%v<=>%v\n", address.Hex(), account.Address.Hex())
 		if strings.EqualFold(account.Address.Hex(), address.Hex()) {
 			return account, nil
 		}

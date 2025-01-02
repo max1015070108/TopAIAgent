@@ -9,4 +9,5 @@ var CommandSum = []*cli.Command{
 	PingTestCmd,
 	HeadBlockCmd,
 	NodeGovernanceCmd,
+	AIWorkLoadCommands,
 }

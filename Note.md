@@ -225,11 +225,10 @@ github.com/ethereum/go-ethereum/accounts/abi/bind
 这样就可以在 Go 中方便地与智能合约交互了。生成的合约绑定代码提供了类型安全的接口,使合约调用更加简单和可靠。
 
 ```shell
-Node registry is : 0x5FbDB2315678afecb367f032d93F642f64180aa3
-Transaction hash : 0x5cd21ce1a7075b143f3c62d27665f85d7d429ae227fb2446d1f5d2baaa1828af
-AI Work is : 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
-Transaction hash : 0xb8df901cab38a685721ec074db9f3f1719127ec52476ec0b97edd10c0c98585c
-AI model is : 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
-Transaction hash : 0xf3057a9b2cfb26b0db1c2d6f611d91e15539dbc009db471603adb3c2cf1173d6
-
+Node registry is : 0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82
+Transaction hash : 0x8a30c97c5f569b83f91ceea6c9ea1c65f3bbc50eee06f3aa4066a0e823c23323
+AI Work is : 0x9A676e781A523b5d0C0e43731313A708CB607508
+Transaction hash : 0x00e281c32de9f764a07040a8b5059ed968f3855b3b5b65b24e833b939b1f49d8
+AI model is : 0x0B306BF915C4d645ff596e518fAf3F9669b97016
+Transaction hash : 0x7914b2bc2f1a3c90fff43c25d59f7d7d3d56a1e418cfa6dc6a5fc2fd285ce649
 ```

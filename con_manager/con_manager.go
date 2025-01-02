@@ -43,7 +43,7 @@ func NewConManager(url string) (*ConManager, error) {
 		return nil, err
 	}
 
-	fmt.Printf("data is %+v", confData)
+	// fmt.Printf("data is %+v", confData)
 	//wallet manager
 
 	if confData.Ethereum.KeystoreDir == "" {
@@ -225,24 +225,3 @@ func (c *ConManager) GetEpochByEpochId(id int64) (struct {
 		Hash:      headInfo.Hash().Hex(),
 	}, nil
 }
-
-// func (c *ConManager) GetEpochByEpochId(id int64) (struct {
-// 	TimeStamp uint64
-// 	Hash      string
-// }, error) {
-
-// 	headInfo, err := c.Client.HeaderByNumber(context.Background(), big.NewInt(id))
-// 	if err != nil {
-// 		return struct {
-// 			TimeStamp uint64
-// 			Hash      string
-// 		}{}, err
-// 	}
-// 	return struct {
-// 		TimeStamp uint64
-// 		Hash      string
-// 	}{
-// 		TimeStamp: headInfo.Time,
-// 		Hash:      headInfo.Hash().Hex(),
-// 	}, nil
-// }
