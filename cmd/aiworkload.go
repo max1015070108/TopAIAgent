@@ -1,9 +1,11 @@
 package cmd
 
 import (
+	"context"
 	"crypto/ecdsa"
 	"fmt"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/topaiagent/con_manager"
@@ -67,19 +69,11 @@ var ReportWorkLoadCmd = &cli.Command{
 			return err
 		}
 
-		type Workload struct {
-			Addr     common.Address
-			Workload *big.Int
-			Param1   *big.Int
-			Param2   *big.Int
-			Param3   *big.Int
-		}
-
 		//mock data
 		workload := big.NewInt(10)
 		modelId := big.NewInt(1)
 		sessionId := big.NewInt(1)
-		epochID := big.NewInt(1)
+		epochID := big.NewInt(2)
 
 		signatures, err := conMan.SignText(
 			addrlist[0],
@@ -103,8 +97,16 @@ var ReportWorkLoadCmd = &cli.Command{
 		if err != nil {
 			return err
 		}
+		fmt.Printf("tx.Hash: %+v\n", tx.Hash().Hex())
 
-		fmt.Printf("%+v\n", tx.Hash().Hex())
+		time.Sleep(5 * time.Second)
+		recipt, err := conMan.Client.TransactionReceipt(context.Background(), tx.Hash())
+		// recipt, ispending, err := conMan.Client.TransactionByHash(context.Background(), tx.Hash())
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("recipt:%+v, ispending:%+v", recipt, "ispending")
 		return nil
 	},
 }

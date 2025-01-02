@@ -143,7 +143,7 @@ func CreateLatestAuth(client *ethclient.Client, privateKey *ecdsa.PrivateKey, co
 
 		// 计算maxFeePerGas: baseFee * 2 + gasTipCap
 		maxFeePerGas := new(big.Int).Add(
-			new(big.Int).Mul(baseFee, big.NewInt(2)),
+			new(big.Int).Mul(baseFee, big.NewInt(10)),
 			gasTipCap,
 		)
 
@@ -164,7 +164,7 @@ func CreateLatestAuth(client *ethclient.Client, privateKey *ecdsa.PrivateKey, co
 		Data:  nil,
 	})
 	if err != nil {
-		auth.GasLimit = uint64(300000)
+		auth.GasLimit = uint64(1000000)
 	} else {
 		auth.GasLimit = uint64(float64(gasLimit) * 1.2)
 	}
