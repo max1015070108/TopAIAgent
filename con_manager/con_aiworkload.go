@@ -1,9 +1,11 @@
 package con_manager
 
 import (
+	"context"
 	"crypto/ecdsa"
 	"fmt"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -92,4 +94,66 @@ func (c *ConManager) GetPrivateKeyByAddr(addr common.Address) (*ecdsa.PrivateKey
 	}
 
 	return privateKeyECDSA, nil
+}
+
+func (c *ConManager) ReportWorkload(reporters []string, workload, modelId, sessionId, epochID *big.Int) error {
+
+	privList := []*ecdsa.PrivateKey{}
+	addrlist := []string{}
+
+	for _, key := range reporters {
+
+		privateKeyECDSA, err := c.GetPrivateKeyByAddr(common.HexToAddress(key))
+		if err != nil {
+			return err
+		}
+		privList = append(privList, privateKeyECDSA)
+		addrlist = append(addrlist, key)
+	}
+
+	auth, err := CreateLatestAuth(c.Client, privList[0], c.Conf.ContractAddress.AIWorkerload)
+	if err != nil {
+		return err
+	}
+
+	//mock data
+	// workload := big.NewInt(10)
+	// modelId := big.NewInt(1)
+	// sessionId := big.NewInt(1)
+	// epochID := big.NewInt(2)
+
+	signatures, err := c.SignText(
+		addrlist[0],
+		workload,
+		modelId,
+		sessionId,
+		epochID,
+		privList,
+	)
+
+	tx, err := c.AIWorkload.ReportWorkload(
+		auth,
+		common.HexToAddress(addrlist[0]),
+		workload,
+		modelId,
+		sessionId,
+		epochID,
+		signatures,
+	)
+
+	if err != nil {
+		return err
+	}
+	fmt.Printf("tx.Hash: %+v\n", tx.Hash().Hex())
+
+	time.Sleep(2 * time.Second)
+	recipt, err := c.Client.TransactionReceipt(context.Background(), tx.Hash())
+	// recipt, ispending, err := conMan.Client.TransactionByHash(context.Background(), tx.Hash())
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("recipt:%+v, ispending:%+v", recipt, "ispending")
+
+	return nil
 }

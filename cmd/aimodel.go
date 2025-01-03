@@ -140,12 +140,11 @@ var RecordUploadModelCmd = &cli.Command{
 			return fmt.Errorf("failed to wait for mining: %v", err)
 		}
 
+		fmt.Printf("receipt: %+v\n", receipt)
 		// 检查交易是否成功
 		if receipt.Status == 0 {
 			return fmt.Errorf("transaction failed")
 		}
-
-		fmt.Printf("receipt: %+v\n", receipt)
 
 		return nil
 	},

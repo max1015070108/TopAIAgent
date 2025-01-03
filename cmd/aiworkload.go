@@ -73,7 +73,7 @@ var ReportWorkLoadCmd = &cli.Command{
 		workload := big.NewInt(10)
 		modelId := big.NewInt(1)
 		sessionId := big.NewInt(1)
-		epochID := big.NewInt(2)
+		epochID := big.NewInt(3)
 
 		signatures, err := conMan.SignText(
 			addrlist[0],
