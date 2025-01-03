@@ -182,7 +182,7 @@ func getBaseFee(client *ethclient.Client) (*big.Int, error) {
 	return header.BaseFee, nil
 }
 
-func (c *ConManager) GetLastEpoch() (struct {
+func (c *ConManager) GetLastBlock() (struct {
 	TimeStamp uint64
 	Hash      string
 }, error) {
@@ -203,7 +203,28 @@ func (c *ConManager) GetLastEpoch() (struct {
 	}, nil
 }
 
-func (c *ConManager) GetEpochByEpochId(id int64) (struct {
+func (c *ConManager) GetBlockByHeighNumber(id int64) (struct {
+	TimeStamp uint64
+	Hash      string
+}, error) {
+
+	headInfo, err := c.Client.HeaderByNumber(context.Background(), big.NewInt(id))
+	if err != nil {
+		return struct {
+			TimeStamp uint64
+			Hash      string
+		}{}, err
+	}
+	return struct {
+		TimeStamp uint64
+		Hash      string
+	}{
+		TimeStamp: headInfo.Time,
+		Hash:      headInfo.Hash().Hex(),
+	}, nil
+}
+
+func (c *ConManager) GetLatestBlock(id int64) (struct {
 	TimeStamp uint64
 	Hash      string
 }, error) {

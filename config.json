@@ -18,10 +18,10 @@
     "env_mode": "development"
   },
   "contractaddress": {
-    "ai_models": "0x531172e8e9719cE9b9930cBC7587b3BdEc85878d",
-    "ai_workerload": "0x1e74c6C587e930da5524A65BC7B44EF4B09B81cc",
-    "node_register": "0xa49be3Fd3aC7D1159B36B65186C9Ff838Bc1fd6D",
-    "nodes_governance": "0xa49be3Fd3aC7D1159B36B65186C9Ff838Bc1fd6D"
+    "ai_models": "0x98dd4607946715251ce67d1592124157198E38b8",
+    "ai_workerload": "0xac3Ae34A17Ccfc8F0B653020a81cB0Ca34B72b2A",
+    "node_register": "0xb170C48BC5Af8E723412a164d8f4a2632b9Ea4a7",
+    "nodes_governance": "0xb170C48BC5Af8E723412a164d8f4a2632b9Ea4a7"
   },
   "keystoredir": "~/.topaiagent"
 }

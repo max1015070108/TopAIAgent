@@ -153,7 +153,6 @@ func (c *ConManager) ReportWorkload(reporters []string, workload, modelId, sessi
 		return err
 	}
 
-	fmt.Printf("recipt:%+v, ispending:%+v", recipt, "ispending")
-
+	fmt.Printf("recipt:%+v", recipt)
 	return nil
 }

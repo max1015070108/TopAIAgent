@@ -38,3 +38,5 @@ ReportWorkload
 
 
 ### 1. mode
+模型id作为key 地址list作为value的json格式
+ mapping(uint256 => address[]) public modelDistribution;

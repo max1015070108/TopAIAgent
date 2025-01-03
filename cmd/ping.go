@@ -30,6 +30,12 @@ var PingTestCmd = &cli.Command{
 			Value:    "123456",
 			Required: false,
 		},
+		&cli.IntFlag{
+			Name:     "height",
+			Usage:    "block height",
+			Value:    0,
+			Required: false,
+		},
 	},
 	Action: func(c *cli.Context) error {
 
@@ -40,7 +46,7 @@ var PingTestCmd = &cli.Command{
 
 		// conMan.Client.SubscribeNewHead(, ch chan<- *types.Header)
 
-		roundID, err := conMan.GetLastEpoch()
+		roundID, err := conMan.GetBlockByHeighNumber(c.Int64("height"))
 
 		if err != nil {
 			return nil
@@ -71,7 +77,7 @@ var HeadBlockCmd = &cli.Command{
 			return err
 		}
 
-		head, err := conMan.GetLastEpoch()
+		head, err := conMan.GetLastBlock()
 		if err != nil {
 			return err
 		}

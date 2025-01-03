@@ -20,6 +20,7 @@ var NodeGovernanceCmd = &cli.Command{
 	Subcommands: []*cli.Command{
 		NodeGovernanceInitCmd,
 		RegisterCommand,
+		GetNodeInfoByAddrCmd,
 	},
 }
 
@@ -230,11 +231,10 @@ var GetNodeInfoByAddrCmd = &cli.Command{
 			return err
 		}
 
-		nodes, err := conMan.NodesRegistry.Get(nil, common.HexToAddress(c.String("address")))
+		nodes, err := conMan.GetAllNodeInfo(c.Context)
 		if err != nil {
 			return err
 		}
-
 		fmt.Printf("nodes:%+v\n", nodes)
 		return nil
 	},
