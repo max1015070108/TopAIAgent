@@ -35,3 +35,6 @@
 recordModelUpload 上传模型， reportDeployment 模型的部署实例
 
 ReportWorkload
+
+
+### 1. mode

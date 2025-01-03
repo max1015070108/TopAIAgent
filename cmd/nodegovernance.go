@@ -199,3 +199,43 @@ var RegisterCommand = &cli.Command{
 
 	},
 }
+
+var GetNodeInfoByAddrCmd = &cli.Command{
+
+	Name:  "getnodeinfo",
+	Usage: "get node info",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:     "config",
+			Aliases:  []string{"c"}, // 命令简写
+			Usage:    "config path",
+			Value:    "~/.config/config.json",
+			Required: false,
+		},
+		&cli.StringFlag{
+			Name:     "rpc",
+			Usage:    "blockchain rpc url",
+			Required: true,
+		},
+
+		//address string array
+		&cli.StringFlag{
+			Name:  "address",
+			Usage: "address for get info",
+		},
+	},
+	Action: func(c *cli.Context) error {
+		conMan, err := con_manager.NewConManager(c.String("rpc"))
+		if err != nil {
+			return err
+		}
+
+		nodes, err := conMan.NodesRegistry.Get(nil, common.HexToAddress(c.String("address")))
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("nodes:%+v\n", nodes)
+		return nil
+	},
+}
