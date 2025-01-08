@@ -1,4 +1,4 @@
-module github.com/max1015070108/topaiagent
+module github.com/max1015070108/TopAIAgent
 
 go 1.22.5
 
