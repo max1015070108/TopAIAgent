@@ -9,7 +9,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/topaiagent/con_manager/AIWorkload"
+	"github.com/max1015070108/topaiagent/con_manager/AIWorkload"
 )
 
 func (c *ConManager) GetAIModelContract(

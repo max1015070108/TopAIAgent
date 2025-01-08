@@ -9,12 +9,12 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/topaiagent/con_manager/AIModels"
-	"github.com/topaiagent/con_manager/AIWorkload"
-	"github.com/topaiagent/con_manager/NodesGovernance"
-	"github.com/topaiagent/con_manager/NodesRegistry"
-	"github.com/topaiagent/config"
-	"github.com/topaiagent/wallet"
+	"github.com/max1015070108/topaiagent/con_manager/AIModels"
+	"github.com/max1015070108/topaiagent/con_manager/AIWorkload"
+	"github.com/max1015070108/topaiagent/con_manager/NodesGovernance"
+	"github.com/max1015070108/topaiagent/con_manager/NodesRegistry"
+	"github.com/max1015070108/topaiagent/config"
+	"github.com/max1015070108/topaiagent/wallet"
 )
 
 type ConManager struct {
