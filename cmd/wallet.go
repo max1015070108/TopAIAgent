@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/max1015070108/topaiagent/wallet"
+	"github.com/max1015070108/TopAIAgent/wallet"
 	"github.com/urfave/cli/v2"
 )
 

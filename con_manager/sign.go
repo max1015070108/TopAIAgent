@@ -9,7 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/max1015070108/topaiagent/con_manager/AIWorkload"
+	"github.com/max1015070108/TopAIAgent/con_manager/AIWorkload"
 )
 
 // Signature 结构体用于存储签名组件

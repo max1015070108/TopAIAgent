@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/max1015070108/topaiagent/con_manager"
+	"github.com/max1015070108/TopAIAgent/con_manager"
 	"github.com/urfave/cli/v2"
 )
 

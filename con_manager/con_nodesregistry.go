@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/max1015070108/topaiagent/con_manager/NodesRegistry"
+	"github.com/max1015070108/TopAIAgent/con_manager/NodesRegistry"
 )
 
 // func (c *ConManager) GetAllNodeInfo(ctx context.Context) ([]NodesRegistry.NodesRegistryNode, error) {

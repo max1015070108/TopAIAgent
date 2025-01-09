@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/max1015070108/topaiagent/cmd"
+	"github.com/max1015070108/TopAIAgent/cmd"
 	"github.com/urfave/cli/v2"
 )
 
