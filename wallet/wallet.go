@@ -132,3 +132,24 @@ func (wm *WalletManager) FindAccount(address common.Address) (accounts.Account, 
 
 	return accounts.Account{}, fmt.Errorf("account not found for address: %s", address.Hex())
 }
+
+// SignMessage 签名消息
+func (wm *WalletManager) SignMessage(account accounts.Account, message []byte, password string) ([]byte, error) {
+	// 先解锁账户
+	err := wm.ks.Unlock(account, password)
+	if err != nil {
+		return nil, fmt.Errorf("unlock account error: %v", err)
+	}
+
+	// 格式化消息
+	prefixedMessage := fmt.Sprintf("\x19Ethereum Signed Message:\n%d%s", len(message), message)
+	hash := crypto.Keccak256([]byte(prefixedMessage))
+
+	// 签名消息
+	signature, err := wm.ks.SignHash(account, hash)
+	if err != nil {
+		return nil, fmt.Errorf("sign message error: %v", err)
+	}
+
+	return signature, nil
+}

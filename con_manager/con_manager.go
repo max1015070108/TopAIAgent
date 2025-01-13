@@ -48,12 +48,12 @@ func NewConManager(url string) (*ConManager, error) {
 		confData.Ethereum.KeystoreDir = wallet.DefaultKeyDir
 	}
 	walletMan := wallet.NewWalletManager(confData.Ethereum.KeystoreDir)
-	accountWallet, err := walletMan.CreateWallet(wallet.Passphrase)
-	if err != nil {
-		return nil, err
-	}
+	// accountWallet, err := walletMan.CreateWallet(wallet.Passphrase)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	fmt.Printf(".... %+v\n", accountWallet)
+	// fmt.Printf(".... %+v\n", accountWallet)
 
 	// AIModels contract
 	aim_contract, err := AIModels.NewAIModels(common.HexToAddress(confData.ContractAddress.AIModels), client)

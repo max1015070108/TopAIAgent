@@ -4,10 +4,14 @@ import (
 	"context"
 	"fmt"
 	"math/big"
+	"sync"
 	"time"
 
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/max1015070108/TopAIAgent/con_manager"
+	"github.com/max1015070108/TopAIAgent/con_manager/NodesRegistry"
+	"github.com/max1015070108/TopAIAgent/con_manager/NodesRegistryImpl"
 	"github.com/urfave/cli/v2"
 )
 
@@ -21,6 +25,8 @@ var NodeGovernanceCmd = &cli.Command{
 		NodeGovernanceInitCmd,
 		RegisterCommand,
 		GetNodeInfoByAddrCmd,
+		MonitorFilterNodeEventsCmd,
+		WatchNodeEventsCmd,
 	},
 }
 
@@ -188,14 +194,24 @@ var RegisterCommand = &cli.Command{
 
 		fmt.Printf("%+v\n", tx.Hash().Hex())
 
-		time.Sleep(5 * time.Second)
-		recipt, err := conMan.Client.TransactionReceipt(context.Background(), tx.Hash())
-		// recipt, ispending, err := conMan.Client.TransactionByHash(context.Background(), tx.Hash())
+		receipt, err := bind.WaitMined(context.Background(), conMan.Client, tx)
 		if err != nil {
-			return err
+			return fmt.Errorf("failed to wait for mining: %v", err)
 		}
 
-		fmt.Printf("recipt:%+v, ispending:%+v", recipt, "ispending")
+		fmt.Printf("receipt: %+v\n", receipt)
+		// 检查交易是否成功
+		if receipt.Status == 0 {
+			return fmt.Errorf("transaction failed")
+		}
+		// time.Sleep(10 * time.Second)
+		// recipt, err := conMan.Client.TransactionReceipt(context.Background(), tx.Hash())
+		// // recipt, ispending, err := conMan.Client.TransactionByHash(context.Background(), tx.Hash())
+		// if err != nil {
+		// 	return err
+		// }
+
+		// fmt.Printf("recipt:%+v, ispending:%+v", recipt, "ispending")
 		return nil
 
 	},
@@ -236,6 +252,172 @@ var GetNodeInfoByAddrCmd = &cli.Command{
 			return err
 		}
 		fmt.Printf("nodes:%+v\n", nodes)
+		return nil
+	},
+}
+
+var MonitorFilterNodeEventsCmd = &cli.Command{
+
+	Name:  "filterevents",
+	Usage: "filterevents command to operate the contract",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:     "config",
+			Aliases:  []string{"c"}, // 命令简写
+			Usage:    "config path",
+			Value:    "~/.config/config.json",
+			Required: false,
+		},
+
+		&cli.Int64Flag{
+			Name:     "fromblock",
+			Aliases:  []string{"f"}, // 命令简写
+			Usage:    "fromblock for filter event",
+			Value:    0,
+			Required: false,
+		},
+
+		&cli.Int64Flag{
+			Name:     "endblock",
+			Aliases:  []string{"e"}, // 命令简写
+			Usage:    "endblock for filter event",
+			Value:    0,
+			Required: false,
+		},
+
+		&cli.StringFlag{
+			Name:     "rpc",
+			Usage:    "blockchain rpc url",
+			Required: true,
+		},
+	},
+	Action: func(c *cli.Context) error {
+
+		conMan, err := con_manager.NewConManager(c.String("rpc"))
+		if err != nil {
+			return err
+		}
+
+		latestBlock, err := conMan.Client.BlockNumber(c.Context)
+		if err != nil {
+			return err
+		}
+
+		fmt.Println("latestBlock:", latestBlock)
+
+		endBlock := big.NewInt(c.Int64("endblock"))
+		if endBlock.Int64() == 0 {
+			endBlock = big.NewInt(int64(latestBlock))
+		}
+
+		events, err := conMan.GetNodeEvents(common.HexToAddress(conMan.Conf.ContractAddress.NodeRegister), big.NewInt(c.Int64("fromblock")), endBlock)
+		if err != nil {
+			return err
+		}
+
+		// events, err := conMan.GetAllNodesRegistryEvents(big.NewInt(c.Int64("fromblock")), endBlock)
+		// if err != nil {
+		// 	return err
+		// }
+		fmt.Printf("how much event:%+v\n", events[0])
+
+		for _, event := range events {
+			switch e := event.(type) {
+			case *NodesRegistryImpl.NodesRegistryImplAuthorized:
+				fmt.Printf("Authorized - Owner: %s, Spender: %s\n",
+					e.Owner.Hex(),
+					e.Spender.Hex(),
+				)
+			case *NodesRegistryImpl.NodesRegistryImplNodeActived:
+				fmt.Printf("NodeActived - Miner: %s, Identifier: %s, Time: %s, AliasIdentifier: %s\n",
+					e.Miner.Hex(),
+					e.Identifier.Hex(),
+					e.Time.String(),
+					e.AliasIdentifier,
+				)
+			case *NodesRegistryImpl.NodesRegistryImplNodeDeregistered:
+				fmt.Printf("NodeDeregistered - Identifier: %s, Time: %s, AliasIdentifier: %s\n",
+					e.Identifier.Hex(),
+					e.Time.String(),
+					e.AliasIdentifier,
+				)
+			case *NodesRegistry.NodesRegistryNodeRegistered:
+				fmt.Printf("NodeRegistered - Miner: %s, Identifier: %s, Time: %s, AliasIdentifier: %s\n",
+					e.Miner.Hex(),
+					e.Identifier.Hex(),
+					e.Time.String(),
+					e.AliasIdentifier,
+				)
+			}
+		}
+		return nil
+	},
+}
+
+var WatchNodeEventsCmd = &cli.Command{
+
+	Name:  "watchevents",
+	Usage: "watchevents command to operate the contract",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:     "config",
+			Aliases:  []string{"c"}, // 命令简写
+			Usage:    "config path",
+			Value:    "~/.config/config.json",
+			Required: false,
+		},
+		&cli.Int64Flag{
+			Name:     "endblock",
+			Aliases:  []string{"e"}, // 命令简写
+			Usage:    "endblock for filter event",
+			Value:    0,
+			Required: false,
+		},
+
+		&cli.StringFlag{
+			Name:     "rpc",
+			Usage:    "blockchain rpc url",
+			Required: true,
+		},
+	},
+	Action: func(c *cli.Context) error {
+
+		conMan, err := con_manager.NewConManager(c.String("rpc"))
+		if err != nil {
+			return err
+		}
+
+		eventChan := make(chan interface{})
+		sub, err := conMan.WatchNodesRegistryEvents(eventChan)
+		if err != nil {
+			fmt.Printf("Watch error: %v\n", err)
+			return err
+		}
+		defer sub.Unsubscribe()
+
+		wg := sync.WaitGroup{}
+		wg.Add(1)
+		go func(wg *sync.WaitGroup) {
+			for {
+				select {
+				case event := <-eventChan:
+					switch e := event.(type) {
+					case *NodesRegistry.NodesRegistryNodeRegistered:
+						fmt.Printf("New NodeRegistered - Miner: %s\n", e.Miner.Hex())
+					case *NodesRegistry.NodesRegistryNodeActived:
+						fmt.Printf("New NodeActived - Miner: %s\n", e.Miner.Hex())
+						// ... 处理其他事件类型
+					}
+				case err := <-sub.Err():
+					fmt.Printf("Watch error: %v\n", err)
+					wg.Done()
+					return
+				}
+			}
+
+		}(&wg)
+
+		wg.Wait()
 		return nil
 	},
 }

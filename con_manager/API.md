@@ -53,3 +53,19 @@ error
 func (c *ConManager) GetModelDeploymentMap(modelId *big.Int) (map[*big.Int][]common.Address, error)
 
 ```
+
+
+### event 监听
+```shell
+
+    事件监听功能
+    1. 监听节点注册事件
+    2. 监听节点注销事件
+    3. 监听节点更新事件
+    4. 监听节点工作量上报事件
+    5. 监听节点工作量结算事件
+    6. 监听节点工作量结算结果事件
+    7. 监听节点工作量结算失败事件
+
+
+```
