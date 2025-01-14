@@ -330,7 +330,7 @@ var MonitorFilterNodeEventsCmd = &cli.Command{
 				)
 			case *NodesRegistryImpl.NodesRegistryImplNodeActived:
 				fmt.Printf("NodeActived - Miner: %s, Identifier: %s, Time: %s, AliasIdentifier: %s\n",
-					e.Miner.Hex(),
+					e.Wallet.Hex(),
 					e.Identifier.Hex(),
 					e.Time.String(),
 					e.AliasIdentifier,
@@ -343,7 +343,7 @@ var MonitorFilterNodeEventsCmd = &cli.Command{
 				)
 			case *NodesRegistry.NodesRegistryNodeRegistered:
 				fmt.Printf("NodeRegistered - Miner: %s, Identifier: %s, Time: %s, AliasIdentifier: %s\n",
-					e.Miner.Hex(),
+					e.Wallet.Hex(),
 					e.Identifier.Hex(),
 					e.Time.String(),
 					e.AliasIdentifier,
@@ -403,9 +403,9 @@ var WatchNodeEventsCmd = &cli.Command{
 				case event := <-eventChan:
 					switch e := event.(type) {
 					case *NodesRegistry.NodesRegistryNodeRegistered:
-						fmt.Printf("New NodeRegistered - Miner: %s\n", e.Miner.Hex())
+						fmt.Printf("New NodeRegistered - Miner: %s\n", e.Wallet.Hex())
 					case *NodesRegistry.NodesRegistryNodeActived:
-						fmt.Printf("New NodeActived - Miner: %s\n", e.Miner.Hex())
+						fmt.Printf("New NodeActived - Miner: %s\n", e.Wallet.Hex())
 						// ... 处理其他事件类型
 					}
 				case err := <-sub.Err():

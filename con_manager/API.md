@@ -67,5 +67,4 @@ func (c *ConManager) GetModelDeploymentMap(modelId *big.Int) (map[*big.Int][]com
     6. 监听节点工作量结算结果事件
     7. 监听节点工作量结算失败事件
 
-
 ```

@@ -51,11 +51,12 @@ type NodesRegistryNode struct {
 	Active           bool
 	Gpus             []NodesRegistryComputeAvailable
 	Wallet           common.Address
+	Stake            *big.Int
 }
 
 // NodesRegistryMetaData contains all meta data concerning the NodesRegistry contract.
 var NodesRegistryMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"Authorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"miner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeActived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"miner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeRegistered\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startIndex\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"allocGPU\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"len\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"authorizedPerson\",\"type\":\"address\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"at\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"check\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"authorizer\",\"type\":\"address\"}],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"}],\"name\":\"freeGPU\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"get\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuSummary\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuTypeOfNodes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"length\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"registerNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"Authorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeActived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeRegistered\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startIndex\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"allocGPU\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"len\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"authorizedPerson\",\"type\":\"address\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"at\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"check\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"authorizer\",\"type\":\"address\"}],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"}],\"name\":\"freeGPU\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"get\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuSummary\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuTypeOfNodes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"length\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"registerNode\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}]",
 }
 
 // NodesRegistryABI is the input ABI used to generate the binding from.
@@ -237,7 +238,7 @@ func (_NodesRegistry *NodesRegistryCallerSession) Allocator() (common.Address, e
 
 // At is a free data retrieval call binding the contract method 0xe0886f90.
 //
-// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address) node)
+// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
 func (_NodesRegistry *NodesRegistryCaller) At(opts *bind.CallOpts, index *big.Int) (NodesRegistryNode, error) {
 	var out []interface{}
 	err := _NodesRegistry.contract.Call(opts, &out, "at", index)
@@ -254,14 +255,14 @@ func (_NodesRegistry *NodesRegistryCaller) At(opts *bind.CallOpts, index *big.In
 
 // At is a free data retrieval call binding the contract method 0xe0886f90.
 //
-// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address) node)
+// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
 func (_NodesRegistry *NodesRegistrySession) At(index *big.Int) (NodesRegistryNode, error) {
 	return _NodesRegistry.Contract.At(&_NodesRegistry.CallOpts, index)
 }
 
 // At is a free data retrieval call binding the contract method 0xe0886f90.
 //
-// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address) node)
+// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
 func (_NodesRegistry *NodesRegistryCallerSession) At(index *big.Int) (NodesRegistryNode, error) {
 	return _NodesRegistry.Contract.At(&_NodesRegistry.CallOpts, index)
 }
@@ -299,7 +300,7 @@ func (_NodesRegistry *NodesRegistryCallerSession) Check(identifier common.Addres
 
 // Get is a free data retrieval call binding the contract method 0xc2bc2efc.
 //
-// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address) node)
+// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
 func (_NodesRegistry *NodesRegistryCaller) Get(opts *bind.CallOpts, identifier common.Address) (NodesRegistryNode, error) {
 	var out []interface{}
 	err := _NodesRegistry.contract.Call(opts, &out, "get", identifier)
@@ -316,14 +317,14 @@ func (_NodesRegistry *NodesRegistryCaller) Get(opts *bind.CallOpts, identifier c
 
 // Get is a free data retrieval call binding the contract method 0xc2bc2efc.
 //
-// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address) node)
+// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
 func (_NodesRegistry *NodesRegistrySession) Get(identifier common.Address) (NodesRegistryNode, error) {
 	return _NodesRegistry.Contract.Get(&_NodesRegistry.CallOpts, identifier)
 }
 
 // Get is a free data retrieval call binding the contract method 0xc2bc2efc.
 //
-// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address) node)
+// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
 func (_NodesRegistry *NodesRegistryCallerSession) Get(identifier common.Address) (NodesRegistryNode, error) {
 	return _NodesRegistry.Contract.Get(&_NodesRegistry.CallOpts, identifier)
 }
@@ -547,21 +548,21 @@ func (_NodesRegistry *NodesRegistryTransactorSession) FreeGPU(gpuNodes []NodeCom
 
 // RegisterNode is a paid mutator transaction binding the contract method 0xefca74d2.
 //
-// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) returns()
+// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) payable returns()
 func (_NodesRegistry *NodesRegistryTransactor) RegisterNode(opts *bind.TransactOpts, wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int) (*types.Transaction, error) {
 	return _NodesRegistry.contract.Transact(opts, "registerNode", wallet, aliasIdentifier, gpuTypes, gpuNums)
 }
 
 // RegisterNode is a paid mutator transaction binding the contract method 0xefca74d2.
 //
-// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) returns()
+// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) payable returns()
 func (_NodesRegistry *NodesRegistrySession) RegisterNode(wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int) (*types.Transaction, error) {
 	return _NodesRegistry.Contract.RegisterNode(&_NodesRegistry.TransactOpts, wallet, aliasIdentifier, gpuTypes, gpuNums)
 }
 
 // RegisterNode is a paid mutator transaction binding the contract method 0xefca74d2.
 //
-// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) returns()
+// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) payable returns()
 func (_NodesRegistry *NodesRegistryTransactorSession) RegisterNode(wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int) (*types.Transaction, error) {
 	return _NodesRegistry.Contract.RegisterNode(&_NodesRegistry.TransactOpts, wallet, aliasIdentifier, gpuTypes, gpuNums)
 }
@@ -788,7 +789,7 @@ func (it *NodesRegistryNodeActivedIterator) Close() error {
 
 // NodesRegistryNodeActived represents a NodeActived event raised by the NodesRegistry contract.
 type NodesRegistryNodeActived struct {
-	Miner           common.Address
+	Wallet          common.Address
 	Identifier      common.Address
 	Time            *big.Int
 	AliasIdentifier string
@@ -797,15 +798,15 @@ type NodesRegistryNodeActived struct {
 
 // FilterNodeActived is a free log retrieval operation binding the contract event 0x25cdb56344c72b35eff48499be35553cea1cf3ee21c613692d20ea5a5c539e37.
 //
-// Solidity: event NodeActived(address indexed miner, address identifier, uint256 time, string aliasIdentifier)
-func (_NodesRegistry *NodesRegistryFilterer) FilterNodeActived(opts *bind.FilterOpts, miner []common.Address) (*NodesRegistryNodeActivedIterator, error) {
+// Solidity: event NodeActived(address indexed wallet, address identifier, uint256 time, string aliasIdentifier)
+func (_NodesRegistry *NodesRegistryFilterer) FilterNodeActived(opts *bind.FilterOpts, wallet []common.Address) (*NodesRegistryNodeActivedIterator, error) {
 
-	var minerRule []interface{}
-	for _, minerItem := range miner {
-		minerRule = append(minerRule, minerItem)
+	var walletRule []interface{}
+	for _, walletItem := range wallet {
+		walletRule = append(walletRule, walletItem)
 	}
 
-	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "NodeActived", minerRule)
+	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "NodeActived", walletRule)
 	if err != nil {
 		return nil, err
 	}
@@ -814,15 +815,15 @@ func (_NodesRegistry *NodesRegistryFilterer) FilterNodeActived(opts *bind.Filter
 
 // WatchNodeActived is a free log subscription operation binding the contract event 0x25cdb56344c72b35eff48499be35553cea1cf3ee21c613692d20ea5a5c539e37.
 //
-// Solidity: event NodeActived(address indexed miner, address identifier, uint256 time, string aliasIdentifier)
-func (_NodesRegistry *NodesRegistryFilterer) WatchNodeActived(opts *bind.WatchOpts, sink chan<- *NodesRegistryNodeActived, miner []common.Address) (event.Subscription, error) {
+// Solidity: event NodeActived(address indexed wallet, address identifier, uint256 time, string aliasIdentifier)
+func (_NodesRegistry *NodesRegistryFilterer) WatchNodeActived(opts *bind.WatchOpts, sink chan<- *NodesRegistryNodeActived, wallet []common.Address) (event.Subscription, error) {
 
-	var minerRule []interface{}
-	for _, minerItem := range miner {
-		minerRule = append(minerRule, minerItem)
+	var walletRule []interface{}
+	for _, walletItem := range wallet {
+		walletRule = append(walletRule, walletItem)
 	}
 
-	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "NodeActived", minerRule)
+	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "NodeActived", walletRule)
 	if err != nil {
 		return nil, err
 	}
@@ -856,7 +857,7 @@ func (_NodesRegistry *NodesRegistryFilterer) WatchNodeActived(opts *bind.WatchOp
 
 // ParseNodeActived is a log parse operation binding the contract event 0x25cdb56344c72b35eff48499be35553cea1cf3ee21c613692d20ea5a5c539e37.
 //
-// Solidity: event NodeActived(address indexed miner, address identifier, uint256 time, string aliasIdentifier)
+// Solidity: event NodeActived(address indexed wallet, address identifier, uint256 time, string aliasIdentifier)
 func (_NodesRegistry *NodesRegistryFilterer) ParseNodeActived(log types.Log) (*NodesRegistryNodeActived, error) {
 	event := new(NodesRegistryNodeActived)
 	if err := _NodesRegistry.contract.UnpackLog(event, "NodeActived", log); err != nil {
@@ -1081,7 +1082,7 @@ func (it *NodesRegistryNodeRegisteredIterator) Close() error {
 
 // NodesRegistryNodeRegistered represents a NodeRegistered event raised by the NodesRegistry contract.
 type NodesRegistryNodeRegistered struct {
-	Miner           common.Address
+	Wallet          common.Address
 	Identifier      common.Address
 	Time            *big.Int
 	AliasIdentifier string
@@ -1090,15 +1091,15 @@ type NodesRegistryNodeRegistered struct {
 
 // FilterNodeRegistered is a free log retrieval operation binding the contract event 0x0b464c895406310478ed7e414061d7621fd5f7444d7618e96d7fbb917a51f302.
 //
-// Solidity: event NodeRegistered(address indexed miner, address identifier, uint256 time, string aliasIdentifier)
-func (_NodesRegistry *NodesRegistryFilterer) FilterNodeRegistered(opts *bind.FilterOpts, miner []common.Address) (*NodesRegistryNodeRegisteredIterator, error) {
+// Solidity: event NodeRegistered(address indexed wallet, address identifier, uint256 time, string aliasIdentifier)
+func (_NodesRegistry *NodesRegistryFilterer) FilterNodeRegistered(opts *bind.FilterOpts, wallet []common.Address) (*NodesRegistryNodeRegisteredIterator, error) {
 
-	var minerRule []interface{}
-	for _, minerItem := range miner {
-		minerRule = append(minerRule, minerItem)
+	var walletRule []interface{}
+	for _, walletItem := range wallet {
+		walletRule = append(walletRule, walletItem)
 	}
 
-	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "NodeRegistered", minerRule)
+	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "NodeRegistered", walletRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1107,15 +1108,15 @@ func (_NodesRegistry *NodesRegistryFilterer) FilterNodeRegistered(opts *bind.Fil
 
 // WatchNodeRegistered is a free log subscription operation binding the contract event 0x0b464c895406310478ed7e414061d7621fd5f7444d7618e96d7fbb917a51f302.
 //
-// Solidity: event NodeRegistered(address indexed miner, address identifier, uint256 time, string aliasIdentifier)
-func (_NodesRegistry *NodesRegistryFilterer) WatchNodeRegistered(opts *bind.WatchOpts, sink chan<- *NodesRegistryNodeRegistered, miner []common.Address) (event.Subscription, error) {
+// Solidity: event NodeRegistered(address indexed wallet, address identifier, uint256 time, string aliasIdentifier)
+func (_NodesRegistry *NodesRegistryFilterer) WatchNodeRegistered(opts *bind.WatchOpts, sink chan<- *NodesRegistryNodeRegistered, wallet []common.Address) (event.Subscription, error) {
 
-	var minerRule []interface{}
-	for _, minerItem := range miner {
-		minerRule = append(minerRule, minerItem)
+	var walletRule []interface{}
+	for _, walletItem := range wallet {
+		walletRule = append(walletRule, walletItem)
 	}
 
-	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "NodeRegistered", minerRule)
+	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "NodeRegistered", walletRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1149,7 +1150,7 @@ func (_NodesRegistry *NodesRegistryFilterer) WatchNodeRegistered(opts *bind.Watc
 
 // ParseNodeRegistered is a log parse operation binding the contract event 0x0b464c895406310478ed7e414061d7621fd5f7444d7618e96d7fbb917a51f302.
 //
-// Solidity: event NodeRegistered(address indexed miner, address identifier, uint256 time, string aliasIdentifier)
+// Solidity: event NodeRegistered(address indexed wallet, address identifier, uint256 time, string aliasIdentifier)
 func (_NodesRegistry *NodesRegistryFilterer) ParseNodeRegistered(log types.Log) (*NodesRegistryNodeRegistered, error) {
 	event := new(NodesRegistryNodeRegistered)
 	if err := _NodesRegistry.contract.UnpackLog(event, "NodeRegistered", log); err != nil {
