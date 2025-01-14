@@ -24,6 +24,7 @@ var NodeGovernanceCmd = &cli.Command{
 	Subcommands: []*cli.Command{
 		NodeGovernanceInitCmd,
 		RegisterCommand,
+		DeregisterCommand,
 		GetNodeInfoByAddrCmd,
 		MonitorFilterNodeEventsCmd,
 		WatchNodeEventsCmd,
@@ -141,6 +142,13 @@ var RegisterCommand = &cli.Command{
 			Required: true,
 		},
 
+		&cli.StringSliceFlag{
+			Name:     "alias_identifiers",
+			Usage:    "alias_identifiers setting",
+			Value:    cli.NewStringSlice("11111111111111111", "21111111111111111"),
+			Required: false,
+		},
+
 		//address string array
 		&cli.StringSliceFlag{
 			Name:    "identifiers",
@@ -163,9 +171,11 @@ var RegisterCommand = &cli.Command{
 
 			identifiersAddr = append(identifiersAddr, common.HexToAddress(value))
 		}
+
+		// alias_identifiers_slice :=
 		// fmt.Println(value)
 		// wallets := c.StringSlice("identifiers")
-		alias_identifiers := []string{"11111111111111111", "21111111111111111"}
+		alias_identifiers_slice := c.StringSlice("alias_identifiers") //[]string{"11111111111111111", "21111111111111111"}
 		gpuTypes := [][]string{{"A100", "V100"}, {"A100", "V100"}}
 		gpuNums := [][]*big.Int{
 			{big.NewInt(2), big.NewInt(3)},
@@ -186,7 +196,7 @@ var RegisterCommand = &cli.Command{
 		}
 
 		tx, err := conMan.NodesRegistry.RegisterNode(
-			auth, identifiersAddr[0], alias_identifiers[0], gpuTypes[0], gpuNums[0],
+			auth, identifiersAddr[0], alias_identifiers_slice[0], gpuTypes[0], gpuNums[0],
 		)
 		if err != nil {
 			return err
@@ -212,6 +222,79 @@ var RegisterCommand = &cli.Command{
 		// }
 
 		// fmt.Printf("recipt:%+v, ispending:%+v", recipt, "ispending")
+		return nil
+
+	},
+}
+
+var DeregisterCommand = &cli.Command{
+
+	Name:  "deregister",
+	Usage: "deregister node",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:     "config",
+			Aliases:  []string{"c"}, // 命令简写
+			Usage:    "config path",
+			Value:    "~/.config/config.json",
+			Required: false,
+		},
+		&cli.StringFlag{
+			Name:     "rpc",
+			Usage:    "blockchain rpc url",
+			Required: true,
+		},
+
+		//address string array
+		&cli.StringFlag{
+			Name:  "address",
+			Usage: "address for deregister",
+			Value: "0xc4ab424f86c9c9bafdc02b2d3fe0d97950c7dd17",
+		},
+	},
+	Action: func(c *cli.Context) error {
+		conMan, err := con_manager.NewConManager(c.String("rpc"))
+		if err != nil {
+			return err
+		}
+
+		// identifiers := c.StringSlice("identifiers")
+		// identifiersAddr := []common.Address{}
+		// for _, value := range identifiers {
+		// 	fmt.Printf("if is....%+v\n", value)
+		// 	identifiersAddr = append(identifiersAddr, common.HexToAddress(value))
+		// }
+
+		fmt.Println("current address...", c.String("address"))
+		fmt.Println("current contract...", conMan.Conf.ContractAddress.NodeRegister)
+		privateKeyECDSA, err := conMan.GetPrivateKeyByAddr(common.HexToAddress(c.String("address")))
+		if err != nil {
+			return err
+		}
+
+		auth, err := con_manager.CreateLatestAuth(conMan.Client, privateKeyECDSA, conMan.Conf.ContractAddress.NodeRegister)
+
+		if err != nil {
+			return err
+		}
+
+		tx, err := conMan.NodesRegistry.DeregisterNode(auth)
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("%+v\n", tx.Hash().Hex())
+
+		receipt, err := bind.WaitMined(context.Background(), conMan.Client, tx)
+		if err != nil {
+			return fmt.Errorf("failed to wait for mining: %v", err)
+		}
+
+		fmt.Printf("receipt: %+v\n", receipt)
+		// 检查交易是否成功
+		if receipt.Status == 0 {
+			return fmt.Errorf("transaction failed")
+		}
 		return nil
 
 	},
