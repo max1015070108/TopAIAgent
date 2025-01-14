@@ -14,6 +14,7 @@ import (
 	"github.com/max1015070108/TopAIAgent/con_manager/NodesGovernance"
 	"github.com/max1015070108/TopAIAgent/con_manager/NodesRegistry"
 	"github.com/max1015070108/TopAIAgent/config"
+	"github.com/max1015070108/TopAIAgent/database"
 	"github.com/max1015070108/TopAIAgent/wallet"
 )
 
@@ -24,8 +25,9 @@ type ConManager struct {
 	NodesRegistry   *NodesRegistry.NodesRegistry
 	NodesGovernance *NodesGovernance.NodesGovernance
 	//add wallet
-	Wallet wallet.WalletManager
-	Conf   *config.Config
+	Wallet    wallet.WalletManager
+	Conf      *config.Config
+	DataEvent *database.EventStore
 }
 
 func NewConManager(url string) (*ConManager, error) {
@@ -41,19 +43,20 @@ func NewConManager(url string) (*ConManager, error) {
 		return nil, err
 	}
 
-	// fmt.Printf("data is %+v", confData)
-	//wallet manager
+	DataEvent, err := database.NewEventStore() // DBName would be used for sqlite3
+	if err != nil {
+		return nil, err
+	}
+
+	err = DataEvent.InitTables()
+	if err != nil {
+		return nil, err
+	}
 
 	if confData.Ethereum.KeystoreDir == "" {
 		confData.Ethereum.KeystoreDir = wallet.DefaultKeyDir
 	}
 	walletMan := wallet.NewWalletManager(confData.Ethereum.KeystoreDir)
-	// accountWallet, err := walletMan.CreateWallet(wallet.Passphrase)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// fmt.Printf(".... %+v\n", accountWallet)
 
 	// AIModels contract
 	aim_contract, err := AIModels.NewAIModels(common.HexToAddress(confData.ContractAddress.AIModels), client)
@@ -87,6 +90,7 @@ func NewConManager(url string) (*ConManager, error) {
 		NodesRegistry:   nodes_registry,
 		NodesGovernance: Nodes_governance,
 		Conf:            confData,
+		DataEvent:       DataEvent,
 	}, nil
 }
 
