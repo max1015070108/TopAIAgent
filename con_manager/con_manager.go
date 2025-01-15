@@ -8,6 +8,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/max1015070108/TopAIAgent/con_manager/AIModels"
 	"github.com/max1015070108/TopAIAgent/con_manager/AIWorkload"
@@ -43,15 +44,15 @@ func NewConManager(url string) (*ConManager, error) {
 		return nil, err
 	}
 
-	DataEvent, err := database.NewEventStore() // DBName would be used for sqlite3
-	if err != nil {
-		return nil, err
-	}
+	// DataEvent, err := database.NewEventStore() // DBName would be used for sqlite3
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	err = DataEvent.InitTables()
-	if err != nil {
-		return nil, err
-	}
+	// err = DataEvent.InitTables()
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	if confData.Ethereum.KeystoreDir == "" {
 		confData.Ethereum.KeystoreDir = wallet.DefaultKeyDir
@@ -90,7 +91,7 @@ func NewConManager(url string) (*ConManager, error) {
 		NodesRegistry:   nodes_registry,
 		NodesGovernance: Nodes_governance,
 		Conf:            confData,
-		DataEvent:       DataEvent,
+		// DataEvent:       DataEvent,
 	}, nil
 }
 
@@ -186,46 +187,30 @@ func getBaseFee(client *ethclient.Client) (*big.Int, error) {
 	return header.BaseFee, nil
 }
 
-func (c *ConManager) GetLastBlock() (struct {
-	TimeStamp uint64
-	Hash      string
-}, error) {
+func (c *ConManager) GetLastBlock() (*types.Header, error) {
 
 	headInfo, err := c.Client.HeaderByNumber(context.Background(), nil)
 	if err != nil {
-		return struct {
-			TimeStamp uint64
-			Hash      string
-		}{}, err
+		return nil, err
 	}
-	return struct {
-		TimeStamp uint64
-		Hash      string
-	}{
-		TimeStamp: headInfo.Time,
-		Hash:      headInfo.Hash().Hex(),
-	}, nil
+
+	return headInfo, err
+	// return struct {
+	// 	TimeStamp uint64
+	// 	Hash      string
+	// }{
+	// 	TimeStamp: headInfo.Time,
+	// 	Hash:      headInfo.Hash().Hex(),
+	// }, nil
 }
 
-func (c *ConManager) GetBlockByHeighNumber(id int64) (struct {
-	TimeStamp uint64
-	Hash      string
-}, error) {
+func (c *ConManager) GetBlockByHeighNumber(id int64) (*types.Header, error) {
 
 	headInfo, err := c.Client.HeaderByNumber(context.Background(), big.NewInt(id))
 	if err != nil {
-		return struct {
-			TimeStamp uint64
-			Hash      string
-		}{}, err
+		return nil, err
 	}
-	return struct {
-		TimeStamp uint64
-		Hash      string
-	}{
-		TimeStamp: headInfo.Time,
-		Hash:      headInfo.Hash().Hex(),
-	}, nil
+	return headInfo, nil
 }
 
 func (c *ConManager) GetLatestBlock(id int64) (struct {
