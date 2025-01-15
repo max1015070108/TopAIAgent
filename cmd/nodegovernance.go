@@ -10,6 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/max1015070108/TopAIAgent/con_manager"
+	"github.com/max1015070108/TopAIAgent/con_manager/NodesGovernance"
 	"github.com/max1015070108/TopAIAgent/con_manager/NodesRegistry"
 	"github.com/max1015070108/TopAIAgent/con_manager/NodesRegistryImpl"
 	"github.com/urfave/cli/v2"
@@ -93,16 +94,23 @@ var NodeGovernanceInitCmd = &cli.Command{
 
 		// auth := conMan.
 		// conMan.A
-		tx, err := conMan.NodesGovernance.NodesGovernanceInitialize(
+		nodesInfos := make([]NodesGovernance.NodeInfo, len(identifiersAddr))
+		for i := range identifiersAddr {
+			nodesInfos[i] = NodesGovernance.NodeInfo{
+				Identifier:      identifiersAddr[i],
+				AliasIdentifier: alias_identifiers[i],
+				Wallet:          identifiersAddr[i],
+				GpuTypes:        gpuTypes[i],
+				GpuNums:         gpuNums[i],
+			}
+		}
 
+		tx, err := conMan.NodesGovernance.NodesGovernanceInitialize(
 			auth,
-			identifiersAddr,
-			alias_identifiers,
-			identifiersAddr,
-			gpuTypes,
-			gpuNums,
+			nodesInfos,
 			identifiersAddr[0],
 			big.NewInt(ROUND_DURATION_TIME),
+			common.Address{}, // token address
 		)
 
 		if err != nil {

@@ -10,4 +10,5 @@ var CommandSum = []*cli.Command{
 	HeadBlockCmd,
 	NodeGovernanceCmd,
 	AIWorkLoadCommands,
+	DaemonCommand,
 }

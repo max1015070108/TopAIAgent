@@ -56,7 +56,7 @@ type NodesRegistryNode struct {
 
 // NodesRegistryMetaData contains all meta data concerning the NodesRegistry contract.
 var NodesRegistryMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"Authorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeActived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeRegistered\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startIndex\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"allocGPU\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"len\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"authorizedPerson\",\"type\":\"address\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"at\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"check\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"authorizer\",\"type\":\"address\"}],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"}],\"name\":\"freeGPU\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"get\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuSummary\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuTypeOfNodes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"length\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"registerNode\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"Authorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeActived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfProvider\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfServer\",\"type\":\"address\"}],\"name\":\"NodeAttached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfProvider\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfServer\",\"type\":\"address\"}],\"name\":\"NodeDetached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeRegistered\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startIndex\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"allocGPU\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"len\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"at\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"server\",\"type\":\"address\"}],\"name\":\"attach\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"check\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"server\",\"type\":\"address\"}],\"name\":\"detach\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"}],\"name\":\"freeGPU\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"get\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"provider\",\"type\":\"address\"}],\"name\":\"getAttach\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuSummary\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuTypeOfNodes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"length\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"registerNode\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}]",
 }
 
 // NodesRegistryABI is the input ABI used to generate the binding from.
@@ -329,6 +329,37 @@ func (_NodesRegistry *NodesRegistryCallerSession) Get(identifier common.Address)
 	return _NodesRegistry.Contract.Get(&_NodesRegistry.CallOpts, identifier)
 }
 
+// GetAttach is a free data retrieval call binding the contract method 0xc7edca7a.
+//
+// Solidity: function getAttach(address provider) view returns(address[])
+func (_NodesRegistry *NodesRegistryCaller) GetAttach(opts *bind.CallOpts, provider common.Address) ([]common.Address, error) {
+	var out []interface{}
+	err := _NodesRegistry.contract.Call(opts, &out, "getAttach", provider)
+
+	if err != nil {
+		return *new([]common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]common.Address)).(*[]common.Address)
+
+	return out0, err
+
+}
+
+// GetAttach is a free data retrieval call binding the contract method 0xc7edca7a.
+//
+// Solidity: function getAttach(address provider) view returns(address[])
+func (_NodesRegistry *NodesRegistrySession) GetAttach(provider common.Address) ([]common.Address, error) {
+	return _NodesRegistry.Contract.GetAttach(&_NodesRegistry.CallOpts, provider)
+}
+
+// GetAttach is a free data retrieval call binding the contract method 0xc7edca7a.
+//
+// Solidity: function getAttach(address provider) view returns(address[])
+func (_NodesRegistry *NodesRegistryCallerSession) GetAttach(provider common.Address) ([]common.Address, error) {
+	return _NodesRegistry.Contract.GetAttach(&_NodesRegistry.CallOpts, provider)
+}
+
 // GpuSummary is a free data retrieval call binding the contract method 0xf67c5bdc.
 //
 // Solidity: function gpuSummary(string ) view returns(string gpuType, uint256 totalNum, uint256 used)
@@ -462,25 +493,25 @@ func (_NodesRegistry *NodesRegistryTransactorSession) AllocGPU(startIndex *big.I
 	return _NodesRegistry.Contract.AllocGPU(&_NodesRegistry.TransactOpts, startIndex, gpuTypes, gpuNums)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0xdaea85c5.
+// Attach is a paid mutator transaction binding the contract method 0x7a0ca1e2.
 //
-// Solidity: function approve(address authorizedPerson) returns(bool)
-func (_NodesRegistry *NodesRegistryTransactor) Approve(opts *bind.TransactOpts, authorizedPerson common.Address) (*types.Transaction, error) {
-	return _NodesRegistry.contract.Transact(opts, "approve", authorizedPerson)
+// Solidity: function attach(address server) returns()
+func (_NodesRegistry *NodesRegistryTransactor) Attach(opts *bind.TransactOpts, server common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.contract.Transact(opts, "attach", server)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0xdaea85c5.
+// Attach is a paid mutator transaction binding the contract method 0x7a0ca1e2.
 //
-// Solidity: function approve(address authorizedPerson) returns(bool)
-func (_NodesRegistry *NodesRegistrySession) Approve(authorizedPerson common.Address) (*types.Transaction, error) {
-	return _NodesRegistry.Contract.Approve(&_NodesRegistry.TransactOpts, authorizedPerson)
+// Solidity: function attach(address server) returns()
+func (_NodesRegistry *NodesRegistrySession) Attach(server common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.Attach(&_NodesRegistry.TransactOpts, server)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0xdaea85c5.
+// Attach is a paid mutator transaction binding the contract method 0x7a0ca1e2.
 //
-// Solidity: function approve(address authorizedPerson) returns(bool)
-func (_NodesRegistry *NodesRegistryTransactorSession) Approve(authorizedPerson common.Address) (*types.Transaction, error) {
-	return _NodesRegistry.Contract.Approve(&_NodesRegistry.TransactOpts, authorizedPerson)
+// Solidity: function attach(address server) returns()
+func (_NodesRegistry *NodesRegistryTransactorSession) Attach(server common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.Attach(&_NodesRegistry.TransactOpts, server)
 }
 
 // DeregisterNode is a paid mutator transaction binding the contract method 0x18b1c081.
@@ -504,25 +535,25 @@ func (_NodesRegistry *NodesRegistryTransactorSession) DeregisterNode() (*types.T
 	return _NodesRegistry.Contract.DeregisterNode(&_NodesRegistry.TransactOpts)
 }
 
-// DeregisterNode0 is a paid mutator transaction binding the contract method 0xe7658aaf.
+// Detach is a paid mutator transaction binding the contract method 0xceb6c343.
 //
-// Solidity: function deregisterNode(address authorizer) returns()
-func (_NodesRegistry *NodesRegistryTransactor) DeregisterNode0(opts *bind.TransactOpts, authorizer common.Address) (*types.Transaction, error) {
-	return _NodesRegistry.contract.Transact(opts, "deregisterNode0", authorizer)
+// Solidity: function detach(address server) returns()
+func (_NodesRegistry *NodesRegistryTransactor) Detach(opts *bind.TransactOpts, server common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.contract.Transact(opts, "detach", server)
 }
 
-// DeregisterNode0 is a paid mutator transaction binding the contract method 0xe7658aaf.
+// Detach is a paid mutator transaction binding the contract method 0xceb6c343.
 //
-// Solidity: function deregisterNode(address authorizer) returns()
-func (_NodesRegistry *NodesRegistrySession) DeregisterNode0(authorizer common.Address) (*types.Transaction, error) {
-	return _NodesRegistry.Contract.DeregisterNode0(&_NodesRegistry.TransactOpts, authorizer)
+// Solidity: function detach(address server) returns()
+func (_NodesRegistry *NodesRegistrySession) Detach(server common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.Detach(&_NodesRegistry.TransactOpts, server)
 }
 
-// DeregisterNode0 is a paid mutator transaction binding the contract method 0xe7658aaf.
+// Detach is a paid mutator transaction binding the contract method 0xceb6c343.
 //
-// Solidity: function deregisterNode(address authorizer) returns()
-func (_NodesRegistry *NodesRegistryTransactorSession) DeregisterNode0(authorizer common.Address) (*types.Transaction, error) {
-	return _NodesRegistry.Contract.DeregisterNode0(&_NodesRegistry.TransactOpts, authorizer)
+// Solidity: function detach(address server) returns()
+func (_NodesRegistry *NodesRegistryTransactorSession) Detach(server common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.Detach(&_NodesRegistry.TransactOpts, server)
 }
 
 // FreeGPU is a paid mutator transaction binding the contract method 0x036fe9c2.
@@ -867,6 +898,159 @@ func (_NodesRegistry *NodesRegistryFilterer) ParseNodeActived(log types.Log) (*N
 	return event, nil
 }
 
+// NodesRegistryNodeAttachedIterator is returned from FilterNodeAttached and is used to iterate over the raw logs and unpacked data for NodeAttached events raised by the NodesRegistry contract.
+type NodesRegistryNodeAttachedIterator struct {
+	Event *NodesRegistryNodeAttached // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NodesRegistryNodeAttachedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NodesRegistryNodeAttached)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NodesRegistryNodeAttached)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NodesRegistryNodeAttachedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NodesRegistryNodeAttachedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NodesRegistryNodeAttached represents a NodeAttached event raised by the NodesRegistry contract.
+type NodesRegistryNodeAttached struct {
+	IdentifierOfProvider common.Address
+	IdentifierOfServer   common.Address
+	Raw                  types.Log // Blockchain specific contextual infos
+}
+
+// FilterNodeAttached is a free log retrieval operation binding the contract event 0x042e2dbbe7288392f225b5cc7f610946ae1a1e8673b3f8ce4f6fc3bc6dee5aa6.
+//
+// Solidity: event NodeAttached(address indexed identifierOfProvider, address indexed identifierOfServer)
+func (_NodesRegistry *NodesRegistryFilterer) FilterNodeAttached(opts *bind.FilterOpts, identifierOfProvider []common.Address, identifierOfServer []common.Address) (*NodesRegistryNodeAttachedIterator, error) {
+
+	var identifierOfProviderRule []interface{}
+	for _, identifierOfProviderItem := range identifierOfProvider {
+		identifierOfProviderRule = append(identifierOfProviderRule, identifierOfProviderItem)
+	}
+	var identifierOfServerRule []interface{}
+	for _, identifierOfServerItem := range identifierOfServer {
+		identifierOfServerRule = append(identifierOfServerRule, identifierOfServerItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "NodeAttached", identifierOfProviderRule, identifierOfServerRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NodesRegistryNodeAttachedIterator{contract: _NodesRegistry.contract, event: "NodeAttached", logs: logs, sub: sub}, nil
+}
+
+// WatchNodeAttached is a free log subscription operation binding the contract event 0x042e2dbbe7288392f225b5cc7f610946ae1a1e8673b3f8ce4f6fc3bc6dee5aa6.
+//
+// Solidity: event NodeAttached(address indexed identifierOfProvider, address indexed identifierOfServer)
+func (_NodesRegistry *NodesRegistryFilterer) WatchNodeAttached(opts *bind.WatchOpts, sink chan<- *NodesRegistryNodeAttached, identifierOfProvider []common.Address, identifierOfServer []common.Address) (event.Subscription, error) {
+
+	var identifierOfProviderRule []interface{}
+	for _, identifierOfProviderItem := range identifierOfProvider {
+		identifierOfProviderRule = append(identifierOfProviderRule, identifierOfProviderItem)
+	}
+	var identifierOfServerRule []interface{}
+	for _, identifierOfServerItem := range identifierOfServer {
+		identifierOfServerRule = append(identifierOfServerRule, identifierOfServerItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "NodeAttached", identifierOfProviderRule, identifierOfServerRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NodesRegistryNodeAttached)
+				if err := _NodesRegistry.contract.UnpackLog(event, "NodeAttached", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseNodeAttached is a log parse operation binding the contract event 0x042e2dbbe7288392f225b5cc7f610946ae1a1e8673b3f8ce4f6fc3bc6dee5aa6.
+//
+// Solidity: event NodeAttached(address indexed identifierOfProvider, address indexed identifierOfServer)
+func (_NodesRegistry *NodesRegistryFilterer) ParseNodeAttached(log types.Log) (*NodesRegistryNodeAttached, error) {
+	event := new(NodesRegistryNodeAttached)
+	if err := _NodesRegistry.contract.UnpackLog(event, "NodeAttached", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
 // NodesRegistryNodeDeregisteredIterator is returned from FilterNodeDeregistered and is used to iterate over the raw logs and unpacked data for NodeDeregistered events raised by the NodesRegistry contract.
 type NodesRegistryNodeDeregisteredIterator struct {
 	Event *NodesRegistryNodeDeregistered // Event containing the contract specifics and raw log
@@ -1007,6 +1191,159 @@ func (_NodesRegistry *NodesRegistryFilterer) WatchNodeDeregistered(opts *bind.Wa
 func (_NodesRegistry *NodesRegistryFilterer) ParseNodeDeregistered(log types.Log) (*NodesRegistryNodeDeregistered, error) {
 	event := new(NodesRegistryNodeDeregistered)
 	if err := _NodesRegistry.contract.UnpackLog(event, "NodeDeregistered", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// NodesRegistryNodeDetachedIterator is returned from FilterNodeDetached and is used to iterate over the raw logs and unpacked data for NodeDetached events raised by the NodesRegistry contract.
+type NodesRegistryNodeDetachedIterator struct {
+	Event *NodesRegistryNodeDetached // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NodesRegistryNodeDetachedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NodesRegistryNodeDetached)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NodesRegistryNodeDetached)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NodesRegistryNodeDetachedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NodesRegistryNodeDetachedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NodesRegistryNodeDetached represents a NodeDetached event raised by the NodesRegistry contract.
+type NodesRegistryNodeDetached struct {
+	IdentifierOfProvider common.Address
+	IdentifierOfServer   common.Address
+	Raw                  types.Log // Blockchain specific contextual infos
+}
+
+// FilterNodeDetached is a free log retrieval operation binding the contract event 0x864dd06d15940858b627540246db79e66082ff76b9712b0bb5d483d168b1cd18.
+//
+// Solidity: event NodeDetached(address indexed identifierOfProvider, address indexed identifierOfServer)
+func (_NodesRegistry *NodesRegistryFilterer) FilterNodeDetached(opts *bind.FilterOpts, identifierOfProvider []common.Address, identifierOfServer []common.Address) (*NodesRegistryNodeDetachedIterator, error) {
+
+	var identifierOfProviderRule []interface{}
+	for _, identifierOfProviderItem := range identifierOfProvider {
+		identifierOfProviderRule = append(identifierOfProviderRule, identifierOfProviderItem)
+	}
+	var identifierOfServerRule []interface{}
+	for _, identifierOfServerItem := range identifierOfServer {
+		identifierOfServerRule = append(identifierOfServerRule, identifierOfServerItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "NodeDetached", identifierOfProviderRule, identifierOfServerRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NodesRegistryNodeDetachedIterator{contract: _NodesRegistry.contract, event: "NodeDetached", logs: logs, sub: sub}, nil
+}
+
+// WatchNodeDetached is a free log subscription operation binding the contract event 0x864dd06d15940858b627540246db79e66082ff76b9712b0bb5d483d168b1cd18.
+//
+// Solidity: event NodeDetached(address indexed identifierOfProvider, address indexed identifierOfServer)
+func (_NodesRegistry *NodesRegistryFilterer) WatchNodeDetached(opts *bind.WatchOpts, sink chan<- *NodesRegistryNodeDetached, identifierOfProvider []common.Address, identifierOfServer []common.Address) (event.Subscription, error) {
+
+	var identifierOfProviderRule []interface{}
+	for _, identifierOfProviderItem := range identifierOfProvider {
+		identifierOfProviderRule = append(identifierOfProviderRule, identifierOfProviderItem)
+	}
+	var identifierOfServerRule []interface{}
+	for _, identifierOfServerItem := range identifierOfServer {
+		identifierOfServerRule = append(identifierOfServerRule, identifierOfServerItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "NodeDetached", identifierOfProviderRule, identifierOfServerRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NodesRegistryNodeDetached)
+				if err := _NodesRegistry.contract.UnpackLog(event, "NodeDetached", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseNodeDetached is a log parse operation binding the contract event 0x864dd06d15940858b627540246db79e66082ff76b9712b0bb5d483d168b1cd18.
+//
+// Solidity: event NodeDetached(address indexed identifierOfProvider, address indexed identifierOfServer)
+func (_NodesRegistry *NodesRegistryFilterer) ParseNodeDetached(log types.Log) (*NodesRegistryNodeDetached, error) {
+	event := new(NodesRegistryNodeDetached)
+	if err := _NodesRegistry.contract.UnpackLog(event, "NodeDetached", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

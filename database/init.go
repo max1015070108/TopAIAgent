@@ -95,5 +95,48 @@ func (s *EventStore) InitTables() error {
 		return fmt.Errorf("failed to create node_registry_events table: %v", err)
 	}
 
+	// Nodes Registry Node table
+	if _, err := s.db.Exec(`
+		CREATE TABLE IF NOT EXISTS nodes_registry_node (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			identifier TEXT NOT NULL,
+			alias_identifier TEXT,
+			registration_time INTEGER,
+			active BOOLEAN,
+			wallet TEXT,
+			stake INTEGER,
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+		)
+	`); err != nil {
+		return fmt.Errorf("failed to create nodes_registry_node table: %v", err)
+	}
+
+	// Nodes Registry GPU table for GPU arrays
+	if _, err := s.db.Exec(`
+		CREATE TABLE IF NOT EXISTS nodes_registry_gpu (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			node_id INTEGER,
+			gpu_type TEXT,
+			total_num INTEGER,
+			used INTEGER,
+			FOREIGN KEY (node_id) REFERENCES nodes_registry_node(id)
+		)
+	`); err != nil {
+		return fmt.Errorf("failed to create nodes_registry_gpu table: %v", err)
+	}
+
+	// Block Info table
+	if _, err := s.db.Exec(`
+		CREATE TABLE IF NOT EXISTS block_info (
+						id INTEGER PRIMARY KEY AUTOINCREMENT,
+						block_hash TEXT NOT NULL,
+						timestamp INTEGER NOT NULL,
+						number INTEGER NOT NULL UNIQUE,
+						created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+		)
+				`); err != nil {
+		return fmt.Errorf("failed to create block_info table: %v", err)
+	}
+
 	return nil
 }

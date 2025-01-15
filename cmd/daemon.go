@@ -1,7 +1,10 @@
 package cmd
 
 import (
+	"sync"
+
 	"github.com/max1015070108/TopAIAgent/con_manager"
+	"github.com/max1015070108/TopAIAgent/database"
 	"github.com/urfave/cli/v2"
 )
 
@@ -14,7 +17,7 @@ var DaemonCommand = &cli.Command{
 			Name:     "contractaddress",
 			Aliases:  []string{"c"}, // 命令简写
 			Usage:    "contract address",
-			Required: true,
+			Required: false,
 		},
 		&cli.StringFlag{
 			Name:     "rpc",
@@ -25,23 +28,26 @@ var DaemonCommand = &cli.Command{
 			Name:     "address",
 			Aliases:  []string{"a"}, // 命令简写
 			Usage:    "which address to sign the transaction",
-			Required: true,
+			Required: false,
 		},
 	},
 	Action: func(c *cli.Context) error {
-		_, err := con_manager.NewConManager(c.String("rpc"))
+		conMan, err := con_manager.NewConManager(c.String("rpc"))
 		if err != nil {
 			return err
 		}
 
-		// conMan.AIModels.FilterUploadModeled(&bind.FilterOpts{}, modelId []*big.Int, uploader []common.Address)
-		// nodereg, err := NodesRegistry.NewNodesRegistry(conAddress, client)
-		// if err != nil {
-		// 	return err
-		// }
+		conMan.DataEvent, err = database.NewEventStore() // DBName would be used for sqlite3
+		//init database
+		if err = conMan.DataEvent.InitTables(); err != nil {
+			return err
+		}
 
-		// fmt.Printf("Transaction: %v\n", transaction.Hash().Hex())
+		var wg sync.WaitGroup
+		wg.Add(1)
+		conMan.WatchEvents(c.Context, &wg)
 
+		wg.Wait()
 		return nil
 	},
 }
