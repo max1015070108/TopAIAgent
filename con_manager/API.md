@@ -60,7 +60,8 @@ func (c *ConManager) GetModelDeploymentMap(modelId *big.Int) (map[*big.Int][]com
 
     事件监听功能
     1. 监听节点注册事件
-    + daemon 监听节点
+    + daemon 监听节点注册事件
+
     2. 监听节点注销事件
     3. 监听节点更新事件
     4. 监听节点工作量上报事件
@@ -69,3 +70,6 @@ func (c *ConManager) GetModelDeploymentMap(modelId *big.Int) (map[*big.Int][]com
     7. 监听节点工作量结算失败事件
 
 ```
+
+### infochan -> data store
+### eve

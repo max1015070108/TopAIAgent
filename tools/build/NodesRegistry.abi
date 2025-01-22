@@ -1,0 +1,551 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      }
+    ],
+    "name": "Authorized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "identifier",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "aliasIdentifier",
+        "type": "string"
+      }
+    ],
+    "name": "NodeActived",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "identifierOfProvider",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "identifierOfServer",
+        "type": "address"
+      }
+    ],
+    "name": "NodeAttached",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "identifier",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "aliasIdentifier",
+        "type": "string"
+      }
+    ],
+    "name": "NodeDeregistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "identifierOfProvider",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "identifierOfServer",
+        "type": "address"
+      }
+    ],
+    "name": "NodeDetached",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "identifier",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "aliasIdentifier",
+        "type": "string"
+      }
+    ],
+    "name": "NodeRegistered",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string[]",
+        "name": "gpuTypes",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "gpuNums",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "allocGPU",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "identifier",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "gpuType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "used",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct NodeComputeUsed[]",
+        "name": "gpuNodes",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "len",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "allocator",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "at",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "identifier",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "aliasIdentifier",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "registrationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "gpuType",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalNum",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "used",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct NodesRegistry.ComputeAvailable[]",
+            "name": "gpus",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "address",
+            "name": "wallet",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stake",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct NodesRegistry.Node",
+        "name": "node",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "server",
+        "type": "address"
+      }
+    ],
+    "name": "attach",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "identifier",
+        "type": "address"
+      }
+    ],
+    "name": "check",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "deregisterNode",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "server",
+        "type": "address"
+      }
+    ],
+    "name": "detach",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "identifier",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "gpuType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "used",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct NodeComputeUsed[]",
+        "name": "gpuNodes",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "freeGPU",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "identifier",
+        "type": "address"
+      }
+    ],
+    "name": "get",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "identifier",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "aliasIdentifier",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "registrationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "gpuType",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalNum",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "used",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct NodesRegistry.ComputeAvailable[]",
+            "name": "gpus",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "address",
+            "name": "wallet",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stake",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct NodesRegistry.Node",
+        "name": "node",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "provider",
+        "type": "address"
+      }
+    ],
+    "name": "getAttach",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "gpuSummary",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "gpuType",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalNum",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "used",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "gpuTypeOfNodes",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "length",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "aliasIdentifier",
+        "type": "string"
+      },
+      {
+        "internalType": "string[]",
+        "name": "gpuTypes",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "gpuNums",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "registerNode",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }
+]
