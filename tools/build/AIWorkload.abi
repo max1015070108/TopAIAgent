@@ -3,7 +3,17 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_registry",
+        "name": "_nodeRegistry",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_modelRegistry",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_stakeToken",
         "type": "address"
       }
     ],
@@ -236,7 +246,20 @@
   },
   {
     "inputs": [],
-    "name": "registry",
+    "name": "modelRegistry",
+    "outputs": [
+      {
+        "internalType": "contract AIModels",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nodeRegistry",
     "outputs": [
       {
         "internalType": "contract NodesRegistry",
@@ -388,6 +411,19 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stakeToken",
+    "outputs": [
+      {
+        "internalType": "contract IStake",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",

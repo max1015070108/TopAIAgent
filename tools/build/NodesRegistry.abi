@@ -44,6 +44,18 @@
         "internalType": "string",
         "name": "aliasIdentifier",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string[]",
+        "name": "gpuTypes",
+        "type": "string[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "gpuNums",
+        "type": "uint256[]"
       }
     ],
     "name": "NodeActived",
@@ -138,6 +150,18 @@
         "internalType": "string",
         "name": "aliasIdentifier",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string[]",
+        "name": "gpuTypes",
+        "type": "string[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "gpuNums",
+        "type": "uint256[]"
       }
     ],
     "name": "NodeRegistered",
@@ -546,6 +570,19 @@
     "name": "registerNode",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stakeToken",
+    "outputs": [
+      {
+        "internalType": "contract IStake",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

@@ -13,7 +13,7 @@
 
 
 ## AIModels
-Package_PATH=../topaiagent/con_manager
+Package_PATH=../con_manager
 CON_SOURCE=../../TOP-crosschain-contracts/contracts/contracts/AI
 CON_ABI_SOURCE=../../TOP-crosschain-contracts/artifacts/contracts/contracts/AI
 
