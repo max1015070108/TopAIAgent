@@ -29,6 +29,7 @@ var NodeGovernanceCmd = &cli.Command{
 		GetNodeInfoByAddrCmd,
 		MonitorFilterNodeEventsCmd,
 		WatchNodeEventsCmd,
+		AttachChildToServerCmd,
 	},
 }
 
@@ -509,6 +510,79 @@ var WatchNodeEventsCmd = &cli.Command{
 		}(&wg)
 
 		wg.Wait()
+		return nil
+	},
+}
+
+var AttachChildToServerCmd = &cli.Command{
+
+	Name:  "attach",
+	Usage: "attach child to server",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:     "config",
+			Aliases:  []string{"c"}, // 命令简写
+			Usage:    "config path",
+			Value:    "~/.config/config.json",
+			Required: false,
+		},
+		&cli.StringFlag{
+			Name:     "rpc",
+			Usage:    "blockchain rpc url",
+			Required: true,
+		},
+
+		&cli.StringFlag{
+			Name:     "address",
+			Usage:    "address for attach ",
+			Required: true,
+		},
+
+		&cli.StringFlag{
+			Name:     "operator",
+			Usage:    "operator for attach ",
+			Required: true,
+		},
+
+		// //address string array
+		// &cli.StringFlag{
+		// 	Name:  "server",
+		// 	Usage: "add child address to the specific server",
+		// },
+	},
+	Action: func(c *cli.Context) error {
+		conMan, err := con_manager.NewConManager(c.String("rpc"))
+		if err != nil {
+			return err
+		}
+
+		fmt.Println("current address for attach...", c.String("operator"))
+		fmt.Println("current contract...", conMan.Conf.ContractAddress.NodeRegister)
+		privateKeyECDSA, err := conMan.GetPrivateKeyByAddr(common.HexToAddress(c.String("operator")))
+		if err != nil {
+			return err
+		}
+
+		auth, err := con_manager.CreateLatestAuth(conMan.Client, privateKeyECDSA, conMan.Conf.ContractAddress.NodeRegister)
+
+		if err != nil {
+			return err
+		}
+
+		tx, err := conMan.NodesGovernance.Attach(auth, common.HexToAddress(c.String("address")))
+
+		if err != nil {
+			return err
+		}
+
+		fmt.Println("tx:", tx.Hash().Hex())
+
+		receipt, err := bind.WaitMined(context.Background(), conMan.Client, tx)
+		if err != nil {
+			return fmt.Errorf("failed to wait for mining: %v", err)
+		}
+
+		fmt.Println("receipt: ", receipt)
 		return nil
 	},
 }

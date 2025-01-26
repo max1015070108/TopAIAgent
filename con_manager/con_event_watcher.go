@@ -153,37 +153,37 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				continue
 			}
 
-		case aiModelsAbi.Events["ModelUploadStaked"].ID.Hex():
-			event := new(AIModels.AIModelsModelUploadStaked)
-			err := aiModelsAbi.UnpackIntoInterface(event, "ModelUploadStaked", log.Data)
-			if err != nil {
-				fmt.Println("UnpackIntoInterface error: ", err)
-				continue
-			}
+		// case aiModelsAbi.Events["ModelUploadStaked"].ID.Hex():
+		// 	event := new(AIModels.AIModelsModelUploadStaked)
+		// 	err := aiModelsAbi.UnpackIntoInterface(event, "ModelUploadStaked", log.Data)
+		// 	if err != nil {
+		// 		fmt.Println("UnpackIntoInterface error: ", err)
+		// 		continue
+		// 	}
 
-		case aiModelsAbi.Events["ModelUsedStaked"].ID.Hex():
-			event := new(AIModels.AIModelsModelUsedStaked)
-			err := aiModelsAbi.UnpackIntoInterface(event, "ModelUsedStaked", log.Data)
-			if err != nil {
-				fmt.Println("UnpackIntoInterface error: ", err)
-				continue
-			}
+		// case aiModelsAbi.Events["ModelUsedStaked"].ID.Hex():
+		// 	event := new(AIModels.AIModelsModelUsedStaked)
+		// 	err := aiModelsAbi.UnpackIntoInterface(event, "ModelUsedStaked", log.Data)
+		// 	if err != nil {
+		// 		fmt.Println("UnpackIntoInterface error: ", err)
+		// 		continue
+		// 	}
 
-		case aiModelsAbi.Events["ModelUploadUnstaked"].ID.Hex():
-			event := new(AIModels.AIModelsModelUploadUnstaked)
-			err := aiModelsAbi.UnpackIntoInterface(event, "ModelUploadUnstaked", log.Data)
-			if err != nil {
-				fmt.Println("UnpackIntoInterface error: ", err)
-				continue
-			}
+		// case aiModelsAbi.Events["ModelUploadUnstaked"].ID.Hex():
+		// 	event := new(AIModels.AIModelsModelUploadUnstaked)
+		// 	err := aiModelsAbi.UnpackIntoInterface(event, "ModelUploadUnstaked", log.Data)
+		// 	if err != nil {
+		// 		fmt.Println("UnpackIntoInterface error: ", err)
+		// 		continue
+		// 	}
 
-		case aiModelsAbi.Events["ModelUsedUnstaked"].ID.Hex():
-			event := new(AIModels.AIModelsModelUsedUnstaked)
-			err := aiModelsAbi.UnpackIntoInterface(event, "ModelUsedUnstaked", log.Data)
-			if err != nil {
-				fmt.Println("UnpackIntoInterface error: ", err)
-				continue
-			}
+		// case aiModelsAbi.Events["ModelUsedUnstaked"].ID.Hex():
+		// 	event := new(AIModels.AIModelsModelUsedUnstaked)
+		// 	err := aiModelsAbi.UnpackIntoInterface(event, "ModelUsedUnstaked", log.Data)
+		// 	if err != nil {
+		// 		fmt.Println("UnpackIntoInterface error: ", err)
+		// 		continue
+		// 	}
 
 		case aiWorkloadAbi.Events["WorkloadReported"].ID.Hex():
 			event := new(AIWorkerload.AIWorkloadWorkloadReported)
