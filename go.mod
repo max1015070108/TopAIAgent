@@ -3,7 +3,7 @@ module github.com/max1015070108/TopAIAgent
 go 1.22.5
 
 require (
-	github.com/ethereum/go-ethereum v1.14.12
+	github.com/ethereum/go-ethereum v1.14.13
 	github.com/joho/godotenv v1.5.1
 	github.com/mattn/go-sqlite3 v1.14.24
 	github.com/urfave/cli/v2 v2.27.5
