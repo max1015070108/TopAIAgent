@@ -17,6 +17,7 @@ var AIModelCommands = &cli.Command{
 	Subcommands: []*cli.Command{
 		GetModelDeploymentMapCmd,
 		RecordUploadModelCmd,
+		GetAllModelCmd,
 	},
 }
 
@@ -238,6 +239,51 @@ var ReportDeploymentCmd = &cli.Command{
 			return fmt.Errorf("transaction failed")
 		}
 
+		return nil
+	},
+}
+
+var GetAllModelCmd = &cli.Command{
+
+	Name:  "getall",
+	Usage: "getall models command to operate the contract",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:     "config",
+			Aliases:  []string{"c"}, // 命令简写
+			Usage:    "config path",
+			Value:    "~/.config/config.json",
+			Required: false,
+		},
+		&cli.StringFlag{
+			Name:     "rpc",
+			Usage:    "blockchain rpc url",
+			Required: true,
+		},
+	},
+	Action: func(c *cli.Context) error {
+
+		conMan, err := con_manager.NewConManager(c.String("rpc"))
+		if err != nil {
+			return err
+		}
+
+		nextid, err := conMan.AIModels.NextModelId(nil)
+		if err != nil {
+			return err
+		}
+
+		var allModels []interface{}
+		for i := int64(1); i <= nextid.Int64(); i++ {
+
+			model, err := conMan.AIModels.UploadModels(nil, big.NewInt(i))
+			if err != nil {
+				return err
+			}
+			allModels = append(allModels, model)
+		}
+
+		fmt.Printf(":\n%+v\n", allModels)
 		return nil
 	},
 }
