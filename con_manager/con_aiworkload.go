@@ -37,7 +37,7 @@ func (c *ConManager) GetAIModelContract(
 		return "", err
 	}
 
-	fmt.Printf("privateKey: %v\n", privateKey)
+	// fmt.Printf("privateKey: %v\n", privateKey)
 	//get addr private from keystore
 	privateKeyECDSA, err := crypto.HexToECDSA(privateKey[2:])
 	if err != nil {
@@ -88,7 +88,7 @@ func (c *ConManager) GetPrivateKeyByAddr(addr common.Address) (*ecdsa.PrivateKey
 		return nil, err
 	}
 
-	fmt.Printf("privateKey: %v\n", privateKey)
+	// fmt.Printf("privateKey: %v\n", privateKey)
 	//get addr private from keystore
 	privateKeyECDSA, err := crypto.HexToECDSA(privateKey[2:])
 	if err != nil {
