@@ -15,8 +15,8 @@ type BlockInfo struct {
 func (s *EventStore) StoreBlockInfo(blockInfo BlockInfo) error {
 	stmt := `
 	INSERT OR REPLACE INTO block_info (
-            block_hash, timestamp, number
-        ) VALUES (?, ?, ?)
+            id, block_hash, timestamp, number
+        ) VALUES (1, ?, ?, ?)
     `
 	_, err := s.db.Exec(stmt,
 		blockInfo.BlockHash,

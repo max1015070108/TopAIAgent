@@ -128,11 +128,11 @@ func (s *EventStore) InitTables() error {
 	// Block Info table
 	if _, err := s.db.Exec(`
 		CREATE TABLE IF NOT EXISTS block_info (
-						id INTEGER PRIMARY KEY AUTOINCREMENT,
-						block_hash TEXT NOT NULL,
-						timestamp INTEGER NOT NULL,
-						number INTEGER NOT NULL UNIQUE,
-						created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+			id INTEGER PRIMARY KEY CHECK (id = 1),
+		    block_hash TEXT NOT NULL,
+		    timestamp INTEGER NOT NULL,
+		    number INTEGER NOT NULL,
+		    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 		)
 				`); err != nil {
 		return fmt.Errorf("failed to create block_info table: %v", err)

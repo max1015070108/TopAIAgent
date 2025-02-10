@@ -136,6 +136,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case aiModelsAbi.Events["ModelDeployed"].ID.Hex():
 			event := new(AIModels.AIModelsModelDeployed)
@@ -144,6 +145,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case aiModelsAbi.Events["ModelRemoved"].ID.Hex():
 			event := new(AIModels.AIModelsModelRemoved)
@@ -152,6 +154,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		// case aiModelsAbi.Events["ModelUploadStaked"].ID.Hex():
 		// 	event := new(AIModels.AIModelsModelUploadStaked)
@@ -192,6 +195,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodesGovernanceAbi.Events["ValidationStarted"].ID.Hex():
 			event := new(NodesGovernance.NodesGovernanceValidationStarted)
@@ -200,6 +204,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodesGovernanceAbi.Events["ValidationResult"].ID.Hex():
 			event := new(NodesGovernance.NodesGovernanceValidationResult)
@@ -208,6 +213,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodesGovernanceAbi.Events["SettlementResult"].ID.Hex():
 			event := new(NodesGovernance.NodesGovernanceSettlementResult)
@@ -216,6 +222,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodeRegistryAbi.Events["NodeRegistered"].ID.Hex():
 			event := new(NodesRegistry.NodesRegistryNodeRegistered)
@@ -224,6 +231,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodeRegistryAbi.Events["NodeActived"].ID.Hex():
 			event := new(NodesRegistry.NodesRegistryNodeActived)
@@ -232,6 +240,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodeRegistryAbi.Events["NodeDeregistered"].ID.Hex():
 			event := new(NodesRegistry.NodesRegistryNodeDeregistered)
@@ -240,6 +249,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodeRegistryAbi.Events["Authorized"].ID.Hex():
 			event := new(NodesRegistry.NodesRegistryAuthorized)
@@ -248,6 +258,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodeRegistryAbi.Events["NodeAttached"].ID.Hex():
 			event := new(NodesRegistry.NodesRegistryNodeAttached)
@@ -256,6 +267,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 
 		case nodeRegistryAbi.Events["NodeDetached"].ID.Hex():
 			event := new(NodesRegistry.NodesRegistryNodeDetached)
@@ -264,6 +276,7 @@ func (c *ConManager) HandleLogs(logs []types.Log) error {
 				fmt.Println("UnpackIntoInterface error: ", err)
 				continue
 			}
+			fmt.Println("log.Topics[0].Hex():", log.Topics[0].Hex())
 		}
 	}
 
