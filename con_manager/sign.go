@@ -186,3 +186,68 @@ func (c *ConManager) SignText(
 
 	return signatures, nil
 }
+
+func (c *ConManager) SignTextSingle(
+	addr string,
+	workload, param1, param2, epochID *big.Int,
+	privKeys *ecdsa.PrivateKey,
+) (AIWorkload.Signature, error) {
+	// 准备要签名的数据
+	arguments := abi.Arguments{
+		{Type: getAddressType()},
+		{Type: getUint256Type()},
+		{Type: getUint256Type()},
+		{Type: getUint256Type()},
+		{Type: getUint256Type()},
+	}
+
+	// 编码数据
+	encoded, err := arguments.Pack(
+		// addr,
+		common.HexToAddress(addr),
+		workload,
+		param1,
+		param2,
+		epochID,
+	)
+	if err != nil {
+		return AIWorkload.Signature{}, fmt.Errorf("failed to encode data: %v", err)
+	}
+
+	// 添加前缀并计算哈希
+	prefix := fmt.Sprintf("\x19Ethereum Signed Message:\n%d", len(encoded))
+	prefixedHash := crypto.Keccak256(append([]byte(prefix), encoded...))
+
+	signature, err := crypto.Sign(prefixedHash, privKeys)
+	if err != nil {
+		return AIWorkload.Signature{}, fmt.Errorf("failed to sign with key %d: %v", i, err)
+	}
+
+	fmt.Printf("signature: %x\n", signature)
+
+	fullSig := hexutil.Encode(signature) // 0x + r + s + v
+
+	// 解析各部分 - 模拟 JS 的处理方式
+	var r, s [32]byte
+	rBytes, err := hexutil.Decode(fullSig[:66]) // 0x + 前32字节
+	if err != nil {
+		return AIWorkload.Signature{}, fmt.Errorf("failed to decode R: %v", err)
+	}
+	sBytes, err := hexutil.Decode("0x" + fullSig[66:130]) // 0x + 中间32字节
+	if err != nil {
+		return AIWorkload.Signature{}, fmt.Errorf("failed to decode S: %v", err)
+	}
+	v := signature[64] + 27 // 最后一个字节 + 27
+
+	copy(r[:], rBytes)
+	copy(s[:], sBytes)
+
+	signatures := AIWorkload.Signature{
+		R: r,
+		S: s,
+		V: v,
+	}
+	fmt.Printf("+++++signature: %+v\n", signatures)
+
+	return signatures, nil
+}

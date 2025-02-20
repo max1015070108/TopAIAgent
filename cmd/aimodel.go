@@ -23,8 +23,8 @@ var AIModelCommands = &cli.Command{
 
 var GetModelDeploymentMapCmd = &cli.Command{
 
-	Name:  "aimodel",
-	Usage: "aimodel command to operate the contract",
+	Name:  "deploymap",
+	Usage: "deploymap command to operate the contract",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
 			Name:     "config",
@@ -47,14 +47,14 @@ var GetModelDeploymentMapCmd = &cli.Command{
 		}
 
 		addrlist, err := conMan.GetModelDeploymentMap(
-			big.NewInt(1000),
+			big.NewInt(1),
 		)
 
 		if err != nil {
 			return nil
 		}
 
-		fmt.Println(":\n%+v", addrlist)
+		fmt.Printf(":\n%+v\n", addrlist)
 		return nil
 	},
 }
