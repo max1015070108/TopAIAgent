@@ -46,9 +46,7 @@ var GetModelDeploymentMapCmd = &cli.Command{
 			return err
 		}
 
-		addrlist, err := conMan.GetModelDeploymentMap(
-			big.NewInt(1),
-		)
+		addrlist, err := conMan.GetModelDeploymentMap()
 
 		if err != nil {
 			return nil

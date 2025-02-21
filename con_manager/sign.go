@@ -220,7 +220,7 @@ func (c *ConManager) SignTextSingle(
 
 	signature, err := crypto.Sign(prefixedHash, privKeys)
 	if err != nil {
-		return AIWorkload.Signature{}, fmt.Errorf("failed to sign with key %d: %v", i, err)
+		return AIWorkload.Signature{}, fmt.Errorf("failed to sign with ke %v", err)
 	}
 
 	fmt.Printf("signature: %x\n", signature)

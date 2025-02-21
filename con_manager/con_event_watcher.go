@@ -59,6 +59,8 @@ func (c *ConManager) WatchEvents(ctx context.Context, wg *sync.WaitGroup) ([]com
 					}
 
 					if err := c.HandleLogs(logs); err != nil {
+
+						fmt.Printf("HandleLogs error: ", err)
 						continue
 					}
 
