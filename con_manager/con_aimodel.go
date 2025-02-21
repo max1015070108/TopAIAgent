@@ -28,12 +28,14 @@ func (c *ConManager) GetModelDeploymentMap() (map[*big.Int][]common.Address, err
 		return nil, err
 	}
 
-	for i := big.NewInt(1); i.Cmp(modelIds) <= 0; i.Add(i, big.NewInt(1)) {
+	for i := big.NewInt(1); i.Cmp(modelIds) < 0; i.Add(i, big.NewInt(1)) {
 		addrlist, err := c.AIModels.GetModelDistribution(nil, i)
 		if err != nil {
 			return nil, err
 		}
 		distri[i] = addrlist
+
+		fmt.Printf("i:%+v,addrlist:%+v", i, addrlist)
 	}
 	return distri, nil
 }
