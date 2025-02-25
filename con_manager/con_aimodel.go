@@ -19,24 +19,37 @@ func (c *ConManager) GetNodeDeployment(model_addrss string) ([]*big.Int, error) 
 	return nodes_deploys, nil
 }
 
-func (c *ConManager) GetModelDeploymentMap() (map[*big.Int][]common.Address, error) {
+func (c *ConManager) GetModelDeploymentMap() (map[int64][]common.Address, error) {
+	// Create map to store results using int64 instead of *big.Int
+	distri := make(map[int64][]common.Address)
 
-	//get model list index
-	distri := make(map[*big.Int][]common.Address)
-	modelIds, err := c.AIModels.NextModelId(nil)
+	// Get the next model ID (total count)
+	modelIdsBI, err := c.AIModels.NextModelId(nil)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get NextModelId: %v", err)
 	}
 
-	for i := big.NewInt(1); i.Cmp(modelIds) < 0; i.Add(i, big.NewInt(1)) {
-		addrlist, err := c.AIModels.GetModelDistribution(nil, i)
+	// Convert *big.Int to int64
+	modelIds := modelIdsBI.Int64()
+	fmt.Printf("Total models: %v\n", modelIds)
+
+	// Iterate through each model ID from 1 to modelIds-1
+	for i := int64(1); i < modelIds; i++ {
+		// Create a *big.Int for calling the contract method
+		currentId := big.NewInt(i)
+
+		// Get distribution for this model ID
+		addrlist, err := c.AIModels.GetModelDistribution(nil, currentId)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to get distribution for model %v: %v", i, err)
 		}
+
+		// Store in our map using int64 as key
 		distri[i] = addrlist
 
-		fmt.Printf("i:%+v,addrlist:%+v", i, addrlist)
+		// fmt.Printf("Model ID: %v, Addresses: %v\n", i, addrlist)
 	}
+
 	return distri, nil
 }
 
