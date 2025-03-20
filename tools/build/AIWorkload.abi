@@ -15,6 +15,11 @@
         "internalType": "address",
         "name": "_stakeToken",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_settlement",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -127,6 +132,11 @@
           {
             "internalType": "address",
             "name": "worker",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "user",
             "type": "address"
           }
         ],
@@ -278,6 +288,11 @@
         "type": "address"
       },
       {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
         "name": "workload",
         "type": "uint256"
@@ -401,6 +416,19 @@
       }
     ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "settlement",
+    "outputs": [
+      {
+        "internalType": "contract Settlement",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

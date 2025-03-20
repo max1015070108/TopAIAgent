@@ -97,6 +97,12 @@ var RecordUploadModelCmd = &cli.Command{
 			Value:    "0xC4AB424f86c9C9bAfDc02B2D3fE0d97950c7dd17",
 			Required: false,
 		},
+		&cli.Int64Flag{
+			Name:     "price",
+			Usage:    "how much",
+			Value:    1,
+			Required: false,
+		},
 
 		&cli.StringFlag{
 			Name:     "rpc",
@@ -125,6 +131,7 @@ var RecordUploadModelCmd = &cli.Command{
 			c.String("modelname"),
 			c.String("modelversion"),
 			c.String("modelinfo"),
+			big.NewInt(c.Int64("price")),
 		)
 
 		if err != nil {
@@ -189,6 +196,12 @@ var ReportDeploymentCmd = &cli.Command{
 			Value:    "0xC4AB424f86c9C9bAfDc02B2D3fE0d97950c7dd17",
 			Required: false,
 		},
+		&cli.Int64Flag{
+			Name:     "price",
+			Usage:    "how much",
+			Value:    1,
+			Required: false,
+		},
 
 		&cli.StringFlag{
 			Name:     "rpc",
@@ -217,6 +230,7 @@ var ReportDeploymentCmd = &cli.Command{
 			c.String("modelname"),
 			c.String("modelversion"),
 			c.String("modelinfo"),
+			big.NewInt(c.Int64("price")),
 		)
 
 		if err != nil {

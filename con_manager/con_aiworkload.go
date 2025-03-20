@@ -16,6 +16,7 @@ import (
 
 func (c *ConManager) GetAIModelContract(
 	worker string,
+	user string,
 	workload, modelId, sessionId, epochId *big.Int,
 	aiws []AIWorkload.Signature,
 ) (string, error) {
@@ -51,6 +52,7 @@ func (c *ConManager) GetAIModelContract(
 	transaction, err := c.AIWorkload.ReportWorkload(
 		auth,
 		common.HexToAddress(worker),
+		common.HexToAddress(user),
 		workload,
 		modelId,
 		sessionId,
@@ -98,7 +100,7 @@ func (c *ConManager) GetPrivateKeyByAddr(addr common.Address) (*ecdsa.PrivateKey
 	return privateKeyECDSA, nil
 }
 
-func (c *ConManager) ReportWorkload(reporters []string, workload, modelId, sessionId, epochID *big.Int) error {
+func (c *ConManager) ReportWorkload(reporters []string, user string, workload, modelId, sessionId, epochID *big.Int) error {
 
 	privList := []*ecdsa.PrivateKey{}
 	addrlist := []string{}
@@ -136,6 +138,7 @@ func (c *ConManager) ReportWorkload(reporters []string, workload, modelId, sessi
 	tx, err := c.AIWorkload.ReportWorkload(
 		auth,
 		common.HexToAddress(addrlist[0]),
+		common.HexToAddress(user),
 		workload,
 		modelId,
 		sessionId,

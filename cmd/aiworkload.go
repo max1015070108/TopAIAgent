@@ -87,6 +87,7 @@ var ReportWorkLoadCmd = &cli.Command{
 		tx, err := conMan.AIWorkload.ReportWorkload(
 			auth,
 			common.HexToAddress(addrlist[0]),
+			common.HexToAddress(addrlist[0]),
 			workload,
 			modelId,
 			sessionId,

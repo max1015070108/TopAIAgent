@@ -14,8 +14,8 @@
 
 ## AIModels
 Package_PATH=../con_manager
-CON_SOURCE=../../TOP-crosschain-contracts/contracts/contracts/AI
-CON_ABI_SOURCE=../../TOP-crosschain-contracts/artifacts/contracts/contracts/AI
+CON_SOURCE=../../imo/contracts/AI
+CON_ABI_SOURCE=../../imo/artifacts/contracts/AI
 
 for file in `ls $CON_SOURCE`
 do
