@@ -103,12 +103,13 @@ func getUint256Type() abi.Type {
 //		V    uint8
 //	}, error) {
 func (c *ConManager) SignText(
-	addr string,
+	worker string, user string,
 	workload, param1, param2, epochID *big.Int,
 	privKeys []*ecdsa.PrivateKey,
 ) ([]AIWorkload.Signature, error) {
 	// 准备要签名的数据
 	arguments := abi.Arguments{
+		{Type: getAddressType()},
 		{Type: getAddressType()},
 		{Type: getUint256Type()},
 		{Type: getUint256Type()},
@@ -118,8 +119,8 @@ func (c *ConManager) SignText(
 
 	// 编码数据
 	encoded, err := arguments.Pack(
-		// addr,
-		common.HexToAddress(addr),
+		common.HexToAddress(worker),
+		common.HexToAddress(user),
 		workload,
 		param1,
 		param2,

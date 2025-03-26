@@ -77,6 +77,7 @@ var ReportWorkLoadCmd = &cli.Command{
 
 		signatures, err := conMan.SignText(
 			addrlist[0],
+			addrlist[0],
 			workload,
 			modelId,
 			sessionId,

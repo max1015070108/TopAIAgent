@@ -80,12 +80,12 @@ func (c *ConManager) GetPrivateKeyByAddr(addr common.Address) (*ecdsa.PrivateKey
 		return nil, err
 	}
 
-	err = c.Wallet.UnlockWallet(aacount, "123456")
+	err = c.Wallet.UnlockWallet(aacount, "101507")
 	if err != nil {
 		return nil, err
 	}
 
-	privateKey, err := c.Wallet.ExportPrivateKey(aacount, "123456")
+	privateKey, err := c.Wallet.ExportPrivateKey(aacount, "101507")
 	if err != nil {
 		return nil, err
 	}
@@ -127,6 +127,7 @@ func (c *ConManager) ReportWorkload(reporters []string, user string, workload, m
 	// epochID := big.NewInt(2)
 
 	signatures, err := c.SignText(
+		addrlist[0],
 		addrlist[0],
 		workload,
 		modelId,
