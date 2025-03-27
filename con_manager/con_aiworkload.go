@@ -80,12 +80,12 @@ func (c *ConManager) GetPrivateKeyByAddr(addr common.Address) (*ecdsa.PrivateKey
 		return nil, err
 	}
 
-	err = c.Wallet.UnlockWallet(aacount, "101507")
+	err = c.Wallet.UnlockWallet(aacount, "123456")
 	if err != nil {
 		return nil, err
 	}
 
-	privateKey, err := c.Wallet.ExportPrivateKey(aacount, "101507")
+	privateKey, err := c.Wallet.ExportPrivateKey(aacount, "123456")
 	if err != nil {
 		return nil, err
 	}
