@@ -1,9 +1,11 @@
 package cmd
 
 import (
+	"context"
+	"fmt"
 	"math/big"
-	"time"
 
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/max1015070108/TopAIAgent/con_manager"
 	"github.com/urfave/cli/v2"
 )
@@ -87,9 +89,9 @@ var ReportWorkLoadCmd = &cli.Command{
 		workload := big.NewInt(10)
 		modelId := big.NewInt(1)
 		sessionId := big.NewInt(1)
-		epochID := big.NewInt(45)
+		epochID := big.NewInt(50)
 
-		err = conMan.ReportWorkload(
+		tx, err := conMan.ReportWorkload(
 			c.StringSlice("reporter"),
 			c.String("proxy"),
 			c.String("worker"),
@@ -100,32 +102,16 @@ var ReportWorkLoadCmd = &cli.Command{
 			epochID,
 		)
 
-		// signatures, err := conMan.SignText(
-		// 	addrlist[0],
-		// 	addrlist[0],
-		// 	workload,
-		// 	modelId,
-		// 	sessionId,
-		// 	epochID,
-		// 	privList,
-		// )
-
-		// tx, err := conMan.AIWorkload.ReportWorkload(
-		// 	auth,
-		// 	common.HexToAddress(addrlist[0]),
-		// 	common.HexToAddress(addrlist[0]),
-		// 	workload,
-		// 	modelId,
-		// 	sessionId,
-		// 	epochID,
-		// 	signatures,
-		// )
-
 		if err != nil {
 			return err
 		}
 
-		time.Sleep(5 * time.Second)
+		receipt, err := bind.WaitMined(context.Background(), conMan.Client, tx)
+		if err != nil {
+			return fmt.Errorf("failed to wait for mining: %v", err)
+		}
+
+		fmt.Printf("receipt:%+v\n", receipt)
 		return nil
 	},
 }

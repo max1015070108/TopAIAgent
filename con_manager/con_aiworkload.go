@@ -5,10 +5,10 @@ import (
 	"crypto/ecdsa"
 	"fmt"
 	"math/big"
-	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/max1015070108/TopAIAgent/con_manager/AIWorkload"
@@ -100,7 +100,7 @@ func (c *ConManager) GetPrivateKeyByAddr(addr common.Address) (*ecdsa.PrivateKey
 	return privateKeyECDSA, nil
 }
 
-func (c *ConManager) ReportWorkload(reporters []string, proxy, worker, user string, workload, modelId, sessionId, epochID *big.Int) error {
+func (c *ConManager) ReportWorkload(reporters []string, proxy, worker, user string, workload, modelId, sessionId, epochID *big.Int) (*types.Transaction, error) {
 
 	privList := []*ecdsa.PrivateKey{}
 	addrlist := []string{}
@@ -109,7 +109,7 @@ func (c *ConManager) ReportWorkload(reporters []string, proxy, worker, user stri
 
 		privateKeyECDSA, err := c.GetPrivateKeyByAddr(common.HexToAddress(key))
 		if err != nil {
-			return err
+			return nil, err
 		}
 		privList = append(privList, privateKeyECDSA)
 		addrlist = append(addrlist, key)
@@ -118,7 +118,7 @@ func (c *ConManager) ReportWorkload(reporters []string, proxy, worker, user stri
 	ProxyPrivateKeyECDSA, err := c.GetPrivateKeyByAddr(common.HexToAddress(proxy))
 	auth, err := CreateLatestAuth(c.Client, ProxyPrivateKeyECDSA, c.Conf.ContractAddress.AIWorkerload)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	//mock data
@@ -149,19 +149,12 @@ func (c *ConManager) ReportWorkload(reporters []string, proxy, worker, user stri
 	)
 
 	if err != nil {
-		return err
+		return nil, err
 	}
-	fmt.Printf("tx.Hash: %+v\n", tx.Hash().Hex())
+	// fmt.Printf("tx.Hash: %+v\n", tx.Hash().Hex())
 
-	time.Sleep(2 * time.Second)
-	recipt, err := c.Client.TransactionReceipt(context.Background(), tx.Hash())
-	// recipt, ispending, err := conMan.Client.TransactionByHash(context.Background(), tx.Hash())
-	if err != nil {
-		return err
-	}
-
-	fmt.Printf("recipt:%+v", recipt)
-	return nil
+	// fmt.Printf("recipt:%+v", recipt)
+	return tx, nil
 }
 
 // GetAllWorkloadEvents 获取所有AIWorkload相关事件
