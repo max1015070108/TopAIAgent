@@ -100,7 +100,7 @@ func (c *ConManager) GetPrivateKeyByAddr(addr common.Address) (*ecdsa.PrivateKey
 	return privateKeyECDSA, nil
 }
 
-func (c *ConManager) ReportWorkload(reporters []string, user string, workload, modelId, sessionId, epochID *big.Int) error {
+func (c *ConManager) ReportWorkload(reporters []string, proxy, worker, user string, workload, modelId, sessionId, epochID *big.Int) error {
 
 	privList := []*ecdsa.PrivateKey{}
 	addrlist := []string{}
@@ -115,7 +115,8 @@ func (c *ConManager) ReportWorkload(reporters []string, user string, workload, m
 		addrlist = append(addrlist, key)
 	}
 
-	auth, err := CreateLatestAuth(c.Client, privList[0], c.Conf.ContractAddress.AIWorkerload)
+	ProxyPrivateKeyECDSA, err := c.GetPrivateKeyByAddr(common.HexToAddress(proxy))
+	auth, err := CreateLatestAuth(c.Client, ProxyPrivateKeyECDSA, c.Conf.ContractAddress.AIWorkerload)
 	if err != nil {
 		return err
 	}
@@ -127,8 +128,8 @@ func (c *ConManager) ReportWorkload(reporters []string, user string, workload, m
 	// epochID := big.NewInt(2)
 
 	signatures, err := c.SignText(
-		addrlist[0],
-		addrlist[0],
+		worker,
+		user,
 		workload,
 		modelId,
 		sessionId,
@@ -138,7 +139,7 @@ func (c *ConManager) ReportWorkload(reporters []string, user string, workload, m
 
 	tx, err := c.AIWorkload.ReportWorkload(
 		auth,
-		common.HexToAddress(addrlist[0]),
+		common.HexToAddress(worker),
 		common.HexToAddress(user),
 		workload,
 		modelId,

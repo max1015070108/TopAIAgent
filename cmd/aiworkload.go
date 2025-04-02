@@ -1,13 +1,9 @@
 package cmd
 
 import (
-	"context"
-	"crypto/ecdsa"
-	"fmt"
 	"math/big"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/max1015070108/TopAIAgent/con_manager"
 	"github.com/urfave/cli/v2"
 )
@@ -40,6 +36,24 @@ var ReportWorkLoadCmd = &cli.Command{
 		&cli.StringSliceFlag{
 			Name:     "reporter",
 			Aliases:  []string{"rp"},
+			Usage:    "reporter who sign workload",
+			Required: true,
+		},
+		&cli.StringFlag{
+			Name:     "proxy",
+			Aliases:  []string{"p"},
+			Usage:    "proxy who report workload",
+			Required: true,
+		},
+		&cli.StringFlag{
+			Name:     "worker",
+			Aliases:  []string{"w"},
+			Usage:    "reporter who report workload",
+			Required: true,
+		},
+		&cli.StringFlag{
+			Name:     "user",
+			Aliases:  []string{"u"},
 			Usage:    "reporter who report workload",
 			Required: true,
 		},
@@ -51,64 +65,67 @@ var ReportWorkLoadCmd = &cli.Command{
 			return err
 		}
 
-		privList := []*ecdsa.PrivateKey{}
-		addrlist := []string{}
+		// privList := []*ecdsa.PrivateKey{}
+		// addrlist := []string{}
 
-		for _, key := range c.StringSlice("reporter") {
+		// for _, key := range c.StringSlice("reporter") {
 
-			privateKeyECDSA, err := conMan.GetPrivateKeyByAddr(common.HexToAddress(key))
-			if err != nil {
-				return err
-			}
-			privList = append(privList, privateKeyECDSA)
-			addrlist = append(addrlist, key)
-		}
+		// 	privateKeyECDSA, err := conMan.GetPrivateKeyByAddr(common.HexToAddress(key))
+		// 	if err != nil {
+		// 		return err
+		// 	}
+		// 	privList = append(privList, privateKeyECDSA)
+		// 	addrlist = append(addrlist, key)
+		// }
 
-		auth, err := con_manager.CreateLatestAuth(conMan.Client, privList[0], conMan.Conf.ContractAddress.AIWorkerload)
-		if err != nil {
-			return err
-		}
+		// auth, err := con_manager.CreateLatestAuth(conMan.Client, privList[0], conMan.Conf.ContractAddress.AIWorkerload)
+		// if err != nil {
+		// 	return err
+		// }
 
-		//mock data
+		// //mock data
 		workload := big.NewInt(10)
 		modelId := big.NewInt(1)
 		sessionId := big.NewInt(1)
-		epochID := big.NewInt(3)
+		epochID := big.NewInt(45)
 
-		signatures, err := conMan.SignText(
-			addrlist[0],
-			addrlist[0],
+		err = conMan.ReportWorkload(
+			c.StringSlice("reporter"),
+			c.String("proxy"),
+			c.String("worker"),
+			c.String("user"),
 			workload,
 			modelId,
 			sessionId,
 			epochID,
-			privList,
 		)
 
-		tx, err := conMan.AIWorkload.ReportWorkload(
-			auth,
-			common.HexToAddress(addrlist[0]),
-			common.HexToAddress(addrlist[0]),
-			workload,
-			modelId,
-			sessionId,
-			epochID,
-			signatures,
-		)
+		// signatures, err := conMan.SignText(
+		// 	addrlist[0],
+		// 	addrlist[0],
+		// 	workload,
+		// 	modelId,
+		// 	sessionId,
+		// 	epochID,
+		// 	privList,
+		// )
+
+		// tx, err := conMan.AIWorkload.ReportWorkload(
+		// 	auth,
+		// 	common.HexToAddress(addrlist[0]),
+		// 	common.HexToAddress(addrlist[0]),
+		// 	workload,
+		// 	modelId,
+		// 	sessionId,
+		// 	epochID,
+		// 	signatures,
+		// )
 
 		if err != nil {
 			return err
 		}
-		fmt.Printf("tx.Hash: %+v\n", tx.Hash().Hex())
 
 		time.Sleep(5 * time.Second)
-		recipt, err := conMan.Client.TransactionReceipt(context.Background(), tx.Hash())
-		// recipt, ispending, err := conMan.Client.TransactionByHash(context.Background(), tx.Hash())
-		if err != nil {
-			return err
-		}
-
-		fmt.Printf("recipt:%+v, ispending:%+v", recipt, "ispending")
 		return nil
 	},
 }
