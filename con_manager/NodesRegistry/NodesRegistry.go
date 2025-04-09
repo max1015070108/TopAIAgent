@@ -52,11 +52,12 @@ type NodesRegistryNode struct {
 	Gpus             []NodesRegistryComputeAvailable
 	Wallet           common.Address
 	Stake            *big.Int
+	IsPublic         bool
 }
 
 // NodesRegistryMetaData contains all meta data concerning the NodesRegistry contract.
 var NodesRegistryMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"Authorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"NodeActived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfProvider\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfServer\",\"type\":\"address\"}],\"name\":\"NodeAttached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfProvider\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfServer\",\"type\":\"address\"}],\"name\":\"NodeDetached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"NodeRegistered\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startIndex\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"allocGPU\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"len\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"at\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"server\",\"type\":\"address\"}],\"name\":\"attach\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"check\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"server\",\"type\":\"address\"}],\"name\":\"dettach\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"}],\"name\":\"freeGPU\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"get\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"provider\",\"type\":\"address\"}],\"name\":\"getAttach\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuSummary\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuTypeOfNodes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"length\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"registerNode\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stakeToken\",\"outputs\":[{\"internalType\":\"contractIStake\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"Authorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"NodeActived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfProvider\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfServer\",\"type\":\"address\"}],\"name\":\"NodeAttached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"}],\"name\":\"NodeDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfProvider\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"identifierOfServer\",\"type\":\"address\"}],\"name\":\"NodeDetached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"NodeRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"proxy\",\"type\":\"address\"}],\"name\":\"ProxyNodeRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startIndex\",\"type\":\"uint256\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"}],\"name\":\"allocGPU\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"len\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allocator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"at\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isPublic\",\"type\":\"bool\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"server\",\"type\":\"address\"}],\"name\":\"attach\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"check\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deregisterNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"server\",\"type\":\"address\"}],\"name\":\"dettach\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodeComputeUsed[]\",\"name\":\"gpuNodes\",\"type\":\"tuple[]\"}],\"name\":\"freeGPU\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"}],\"name\":\"get\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"identifier\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"registrationTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"internalType\":\"structNodesRegistry.ComputeAvailable[]\",\"name\":\"gpus\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"stake\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isPublic\",\"type\":\"bool\"}],\"internalType\":\"structNodesRegistry.Node\",\"name\":\"node\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"provider\",\"type\":\"address\"}],\"name\":\"getAttach\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuSummary\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"gpuType\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"totalNum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"used\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"gpuTypeOfNodes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"length\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"proxyNodes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"aliasIdentifier\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"gpuTypes\",\"type\":\"string[]\"},{\"internalType\":\"uint256[]\",\"name\":\"gpuNums\",\"type\":\"uint256[]\"},{\"internalType\":\"bool\",\"name\":\"isPublic\",\"type\":\"bool\"}],\"name\":\"registerNode\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"proxy\",\"type\":\"address\"}],\"name\":\"registerProxyNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stakeToken\",\"outputs\":[{\"internalType\":\"contractIStake\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // NodesRegistryABI is the input ABI used to generate the binding from.
@@ -205,6 +206,68 @@ func (_NodesRegistry *NodesRegistryTransactorRaw) Transact(opts *bind.TransactOp
 	return _NodesRegistry.Contract.contract.Transact(opts, method, params...)
 }
 
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_NodesRegistry *NodesRegistryCaller) ADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _NodesRegistry.contract.Call(opts, &out, "ADMIN_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_NodesRegistry *NodesRegistrySession) ADMINROLE() ([32]byte, error) {
+	return _NodesRegistry.Contract.ADMINROLE(&_NodesRegistry.CallOpts)
+}
+
+// ADMINROLE is a free data retrieval call binding the contract method 0x75b238fc.
+//
+// Solidity: function ADMIN_ROLE() view returns(bytes32)
+func (_NodesRegistry *NodesRegistryCallerSession) ADMINROLE() ([32]byte, error) {
+	return _NodesRegistry.Contract.ADMINROLE(&_NodesRegistry.CallOpts)
+}
+
+// DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
+//
+// Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
+func (_NodesRegistry *NodesRegistryCaller) DEFAULTADMINROLE(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _NodesRegistry.contract.Call(opts, &out, "DEFAULT_ADMIN_ROLE")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
+//
+// Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
+func (_NodesRegistry *NodesRegistrySession) DEFAULTADMINROLE() ([32]byte, error) {
+	return _NodesRegistry.Contract.DEFAULTADMINROLE(&_NodesRegistry.CallOpts)
+}
+
+// DEFAULTADMINROLE is a free data retrieval call binding the contract method 0xa217fddf.
+//
+// Solidity: function DEFAULT_ADMIN_ROLE() view returns(bytes32)
+func (_NodesRegistry *NodesRegistryCallerSession) DEFAULTADMINROLE() ([32]byte, error) {
+	return _NodesRegistry.Contract.DEFAULTADMINROLE(&_NodesRegistry.CallOpts)
+}
+
 // Allocator is a free data retrieval call binding the contract method 0xaa5dcecc.
 //
 // Solidity: function allocator() view returns(address)
@@ -238,7 +301,7 @@ func (_NodesRegistry *NodesRegistryCallerSession) Allocator() (common.Address, e
 
 // At is a free data retrieval call binding the contract method 0xe0886f90.
 //
-// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
+// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256,bool) node)
 func (_NodesRegistry *NodesRegistryCaller) At(opts *bind.CallOpts, index *big.Int) (NodesRegistryNode, error) {
 	var out []interface{}
 	err := _NodesRegistry.contract.Call(opts, &out, "at", index)
@@ -255,14 +318,14 @@ func (_NodesRegistry *NodesRegistryCaller) At(opts *bind.CallOpts, index *big.In
 
 // At is a free data retrieval call binding the contract method 0xe0886f90.
 //
-// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
+// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256,bool) node)
 func (_NodesRegistry *NodesRegistrySession) At(index *big.Int) (NodesRegistryNode, error) {
 	return _NodesRegistry.Contract.At(&_NodesRegistry.CallOpts, index)
 }
 
 // At is a free data retrieval call binding the contract method 0xe0886f90.
 //
-// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
+// Solidity: function at(uint256 index) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256,bool) node)
 func (_NodesRegistry *NodesRegistryCallerSession) At(index *big.Int) (NodesRegistryNode, error) {
 	return _NodesRegistry.Contract.At(&_NodesRegistry.CallOpts, index)
 }
@@ -300,7 +363,7 @@ func (_NodesRegistry *NodesRegistryCallerSession) Check(identifier common.Addres
 
 // Get is a free data retrieval call binding the contract method 0xc2bc2efc.
 //
-// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
+// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256,bool) node)
 func (_NodesRegistry *NodesRegistryCaller) Get(opts *bind.CallOpts, identifier common.Address) (NodesRegistryNode, error) {
 	var out []interface{}
 	err := _NodesRegistry.contract.Call(opts, &out, "get", identifier)
@@ -317,14 +380,14 @@ func (_NodesRegistry *NodesRegistryCaller) Get(opts *bind.CallOpts, identifier c
 
 // Get is a free data retrieval call binding the contract method 0xc2bc2efc.
 //
-// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
+// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256,bool) node)
 func (_NodesRegistry *NodesRegistrySession) Get(identifier common.Address) (NodesRegistryNode, error) {
 	return _NodesRegistry.Contract.Get(&_NodesRegistry.CallOpts, identifier)
 }
 
 // Get is a free data retrieval call binding the contract method 0xc2bc2efc.
 //
-// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256) node)
+// Solidity: function get(address identifier) view returns((address,string,uint256,bool,(string,uint256,uint256)[],address,uint256,bool) node)
 func (_NodesRegistry *NodesRegistryCallerSession) Get(identifier common.Address) (NodesRegistryNode, error) {
 	return _NodesRegistry.Contract.Get(&_NodesRegistry.CallOpts, identifier)
 }
@@ -358,6 +421,37 @@ func (_NodesRegistry *NodesRegistrySession) GetAttach(provider common.Address) (
 // Solidity: function getAttach(address provider) view returns(address[])
 func (_NodesRegistry *NodesRegistryCallerSession) GetAttach(provider common.Address) ([]common.Address, error) {
 	return _NodesRegistry.Contract.GetAttach(&_NodesRegistry.CallOpts, provider)
+}
+
+// GetRoleAdmin is a free data retrieval call binding the contract method 0x248a9ca3.
+//
+// Solidity: function getRoleAdmin(bytes32 role) view returns(bytes32)
+func (_NodesRegistry *NodesRegistryCaller) GetRoleAdmin(opts *bind.CallOpts, role [32]byte) ([32]byte, error) {
+	var out []interface{}
+	err := _NodesRegistry.contract.Call(opts, &out, "getRoleAdmin", role)
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// GetRoleAdmin is a free data retrieval call binding the contract method 0x248a9ca3.
+//
+// Solidity: function getRoleAdmin(bytes32 role) view returns(bytes32)
+func (_NodesRegistry *NodesRegistrySession) GetRoleAdmin(role [32]byte) ([32]byte, error) {
+	return _NodesRegistry.Contract.GetRoleAdmin(&_NodesRegistry.CallOpts, role)
+}
+
+// GetRoleAdmin is a free data retrieval call binding the contract method 0x248a9ca3.
+//
+// Solidity: function getRoleAdmin(bytes32 role) view returns(bytes32)
+func (_NodesRegistry *NodesRegistryCallerSession) GetRoleAdmin(role [32]byte) ([32]byte, error) {
+	return _NodesRegistry.Contract.GetRoleAdmin(&_NodesRegistry.CallOpts, role)
 }
 
 // GpuSummary is a free data retrieval call binding the contract method 0xf67c5bdc.
@@ -441,6 +535,37 @@ func (_NodesRegistry *NodesRegistryCallerSession) GpuTypeOfNodes(arg0 common.Add
 	return _NodesRegistry.Contract.GpuTypeOfNodes(&_NodesRegistry.CallOpts, arg0, arg1)
 }
 
+// HasRole is a free data retrieval call binding the contract method 0x91d14854.
+//
+// Solidity: function hasRole(bytes32 role, address account) view returns(bool)
+func (_NodesRegistry *NodesRegistryCaller) HasRole(opts *bind.CallOpts, role [32]byte, account common.Address) (bool, error) {
+	var out []interface{}
+	err := _NodesRegistry.contract.Call(opts, &out, "hasRole", role, account)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// HasRole is a free data retrieval call binding the contract method 0x91d14854.
+//
+// Solidity: function hasRole(bytes32 role, address account) view returns(bool)
+func (_NodesRegistry *NodesRegistrySession) HasRole(role [32]byte, account common.Address) (bool, error) {
+	return _NodesRegistry.Contract.HasRole(&_NodesRegistry.CallOpts, role, account)
+}
+
+// HasRole is a free data retrieval call binding the contract method 0x91d14854.
+//
+// Solidity: function hasRole(bytes32 role, address account) view returns(bool)
+func (_NodesRegistry *NodesRegistryCallerSession) HasRole(role [32]byte, account common.Address) (bool, error) {
+	return _NodesRegistry.Contract.HasRole(&_NodesRegistry.CallOpts, role, account)
+}
+
 // Length is a free data retrieval call binding the contract method 0x1f7b6d32.
 //
 // Solidity: function length() view returns(uint256)
@@ -472,6 +597,66 @@ func (_NodesRegistry *NodesRegistryCallerSession) Length() (*big.Int, error) {
 	return _NodesRegistry.Contract.Length(&_NodesRegistry.CallOpts)
 }
 
+// ProxyNodes is a free data retrieval call binding the contract method 0xb8afa39c.
+//
+// Solidity: function proxyNodes(address ) view returns(bool)
+func (_NodesRegistry *NodesRegistryCaller) ProxyNodes(opts *bind.CallOpts, arg0 common.Address) (bool, error) {
+	var out []interface{}
+	err := _NodesRegistry.contract.Call(opts, &out, "proxyNodes", arg0)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// ProxyNodes is a free data retrieval call binding the contract method 0xb8afa39c.
+//
+// Solidity: function proxyNodes(address ) view returns(bool)
+func (_NodesRegistry *NodesRegistrySession) ProxyNodes(arg0 common.Address) (bool, error) {
+	return _NodesRegistry.Contract.ProxyNodes(&_NodesRegistry.CallOpts, arg0)
+}
+
+// ProxyNodes is a free data retrieval call binding the contract method 0xb8afa39c.
+//
+// Solidity: function proxyNodes(address ) view returns(bool)
+func (_NodesRegistry *NodesRegistryCallerSession) ProxyNodes(arg0 common.Address) (bool, error) {
+	return _NodesRegistry.Contract.ProxyNodes(&_NodesRegistry.CallOpts, arg0)
+}
+
+// RenounceRole is a free data retrieval call binding the contract method 0x36568abe.
+//
+// Solidity: function renounceRole(bytes32 , address ) pure returns()
+func (_NodesRegistry *NodesRegistryCaller) RenounceRole(opts *bind.CallOpts, arg0 [32]byte, arg1 common.Address) error {
+	var out []interface{}
+	err := _NodesRegistry.contract.Call(opts, &out, "renounceRole", arg0, arg1)
+
+	if err != nil {
+		return err
+	}
+
+	return err
+
+}
+
+// RenounceRole is a free data retrieval call binding the contract method 0x36568abe.
+//
+// Solidity: function renounceRole(bytes32 , address ) pure returns()
+func (_NodesRegistry *NodesRegistrySession) RenounceRole(arg0 [32]byte, arg1 common.Address) error {
+	return _NodesRegistry.Contract.RenounceRole(&_NodesRegistry.CallOpts, arg0, arg1)
+}
+
+// RenounceRole is a free data retrieval call binding the contract method 0x36568abe.
+//
+// Solidity: function renounceRole(bytes32 , address ) pure returns()
+func (_NodesRegistry *NodesRegistryCallerSession) RenounceRole(arg0 [32]byte, arg1 common.Address) error {
+	return _NodesRegistry.Contract.RenounceRole(&_NodesRegistry.CallOpts, arg0, arg1)
+}
+
 // StakeToken is a free data retrieval call binding the contract method 0x51ed6a30.
 //
 // Solidity: function stakeToken() view returns(address)
@@ -501,6 +686,37 @@ func (_NodesRegistry *NodesRegistrySession) StakeToken() (common.Address, error)
 // Solidity: function stakeToken() view returns(address)
 func (_NodesRegistry *NodesRegistryCallerSession) StakeToken() (common.Address, error) {
 	return _NodesRegistry.Contract.StakeToken(&_NodesRegistry.CallOpts)
+}
+
+// SupportsInterface is a free data retrieval call binding the contract method 0x01ffc9a7.
+//
+// Solidity: function supportsInterface(bytes4 interfaceId) view returns(bool)
+func (_NodesRegistry *NodesRegistryCaller) SupportsInterface(opts *bind.CallOpts, interfaceId [4]byte) (bool, error) {
+	var out []interface{}
+	err := _NodesRegistry.contract.Call(opts, &out, "supportsInterface", interfaceId)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// SupportsInterface is a free data retrieval call binding the contract method 0x01ffc9a7.
+//
+// Solidity: function supportsInterface(bytes4 interfaceId) view returns(bool)
+func (_NodesRegistry *NodesRegistrySession) SupportsInterface(interfaceId [4]byte) (bool, error) {
+	return _NodesRegistry.Contract.SupportsInterface(&_NodesRegistry.CallOpts, interfaceId)
+}
+
+// SupportsInterface is a free data retrieval call binding the contract method 0x01ffc9a7.
+//
+// Solidity: function supportsInterface(bytes4 interfaceId) view returns(bool)
+func (_NodesRegistry *NodesRegistryCallerSession) SupportsInterface(interfaceId [4]byte) (bool, error) {
+	return _NodesRegistry.Contract.SupportsInterface(&_NodesRegistry.CallOpts, interfaceId)
 }
 
 // AllocGPU is a paid mutator transaction binding the contract method 0x6252e1c2.
@@ -608,25 +824,88 @@ func (_NodesRegistry *NodesRegistryTransactorSession) FreeGPU(gpuNodes []NodeCom
 	return _NodesRegistry.Contract.FreeGPU(&_NodesRegistry.TransactOpts, gpuNodes)
 }
 
-// RegisterNode is a paid mutator transaction binding the contract method 0xefca74d2.
+// GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
 //
-// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) payable returns()
-func (_NodesRegistry *NodesRegistryTransactor) RegisterNode(opts *bind.TransactOpts, wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int) (*types.Transaction, error) {
-	return _NodesRegistry.contract.Transact(opts, "registerNode", wallet, aliasIdentifier, gpuTypes, gpuNums)
+// Solidity: function grantRole(bytes32 role, address account) returns()
+func (_NodesRegistry *NodesRegistryTransactor) GrantRole(opts *bind.TransactOpts, role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.contract.Transact(opts, "grantRole", role, account)
 }
 
-// RegisterNode is a paid mutator transaction binding the contract method 0xefca74d2.
+// GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
 //
-// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) payable returns()
-func (_NodesRegistry *NodesRegistrySession) RegisterNode(wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int) (*types.Transaction, error) {
-	return _NodesRegistry.Contract.RegisterNode(&_NodesRegistry.TransactOpts, wallet, aliasIdentifier, gpuTypes, gpuNums)
+// Solidity: function grantRole(bytes32 role, address account) returns()
+func (_NodesRegistry *NodesRegistrySession) GrantRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.GrantRole(&_NodesRegistry.TransactOpts, role, account)
 }
 
-// RegisterNode is a paid mutator transaction binding the contract method 0xefca74d2.
+// GrantRole is a paid mutator transaction binding the contract method 0x2f2ff15d.
 //
-// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums) payable returns()
-func (_NodesRegistry *NodesRegistryTransactorSession) RegisterNode(wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int) (*types.Transaction, error) {
-	return _NodesRegistry.Contract.RegisterNode(&_NodesRegistry.TransactOpts, wallet, aliasIdentifier, gpuTypes, gpuNums)
+// Solidity: function grantRole(bytes32 role, address account) returns()
+func (_NodesRegistry *NodesRegistryTransactorSession) GrantRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.GrantRole(&_NodesRegistry.TransactOpts, role, account)
+}
+
+// RegisterNode is a paid mutator transaction binding the contract method 0xff7b178d.
+//
+// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums, bool isPublic) payable returns()
+func (_NodesRegistry *NodesRegistryTransactor) RegisterNode(opts *bind.TransactOpts, wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int, isPublic bool) (*types.Transaction, error) {
+	return _NodesRegistry.contract.Transact(opts, "registerNode", wallet, aliasIdentifier, gpuTypes, gpuNums, isPublic)
+}
+
+// RegisterNode is a paid mutator transaction binding the contract method 0xff7b178d.
+//
+// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums, bool isPublic) payable returns()
+func (_NodesRegistry *NodesRegistrySession) RegisterNode(wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int, isPublic bool) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.RegisterNode(&_NodesRegistry.TransactOpts, wallet, aliasIdentifier, gpuTypes, gpuNums, isPublic)
+}
+
+// RegisterNode is a paid mutator transaction binding the contract method 0xff7b178d.
+//
+// Solidity: function registerNode(address wallet, string aliasIdentifier, string[] gpuTypes, uint256[] gpuNums, bool isPublic) payable returns()
+func (_NodesRegistry *NodesRegistryTransactorSession) RegisterNode(wallet common.Address, aliasIdentifier string, gpuTypes []string, gpuNums []*big.Int, isPublic bool) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.RegisterNode(&_NodesRegistry.TransactOpts, wallet, aliasIdentifier, gpuTypes, gpuNums, isPublic)
+}
+
+// RegisterProxyNode is a paid mutator transaction binding the contract method 0xd8fd0eb1.
+//
+// Solidity: function registerProxyNode(address proxy) returns()
+func (_NodesRegistry *NodesRegistryTransactor) RegisterProxyNode(opts *bind.TransactOpts, proxy common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.contract.Transact(opts, "registerProxyNode", proxy)
+}
+
+// RegisterProxyNode is a paid mutator transaction binding the contract method 0xd8fd0eb1.
+//
+// Solidity: function registerProxyNode(address proxy) returns()
+func (_NodesRegistry *NodesRegistrySession) RegisterProxyNode(proxy common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.RegisterProxyNode(&_NodesRegistry.TransactOpts, proxy)
+}
+
+// RegisterProxyNode is a paid mutator transaction binding the contract method 0xd8fd0eb1.
+//
+// Solidity: function registerProxyNode(address proxy) returns()
+func (_NodesRegistry *NodesRegistryTransactorSession) RegisterProxyNode(proxy common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.RegisterProxyNode(&_NodesRegistry.TransactOpts, proxy)
+}
+
+// RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.
+//
+// Solidity: function revokeRole(bytes32 role, address account) returns()
+func (_NodesRegistry *NodesRegistryTransactor) RevokeRole(opts *bind.TransactOpts, role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.contract.Transact(opts, "revokeRole", role, account)
+}
+
+// RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.
+//
+// Solidity: function revokeRole(bytes32 role, address account) returns()
+func (_NodesRegistry *NodesRegistrySession) RevokeRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.RevokeRole(&_NodesRegistry.TransactOpts, role, account)
+}
+
+// RevokeRole is a paid mutator transaction binding the contract method 0xd547741f.
+//
+// Solidity: function revokeRole(bytes32 role, address account) returns()
+func (_NodesRegistry *NodesRegistryTransactorSession) RevokeRole(role [32]byte, account common.Address) (*types.Transaction, error) {
+	return _NodesRegistry.Contract.RevokeRole(&_NodesRegistry.TransactOpts, role, account)
 }
 
 // NodesRegistryAuthorizedIterator is returned from FilterAuthorized and is used to iterate over the raw logs and unpacked data for Authorized events raised by the NodesRegistry contract.
@@ -1660,6 +1939,636 @@ func (_NodesRegistry *NodesRegistryFilterer) WatchNodeRegistered(opts *bind.Watc
 func (_NodesRegistry *NodesRegistryFilterer) ParseNodeRegistered(log types.Log) (*NodesRegistryNodeRegistered, error) {
 	event := new(NodesRegistryNodeRegistered)
 	if err := _NodesRegistry.contract.UnpackLog(event, "NodeRegistered", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// NodesRegistryProxyNodeRegisteredIterator is returned from FilterProxyNodeRegistered and is used to iterate over the raw logs and unpacked data for ProxyNodeRegistered events raised by the NodesRegistry contract.
+type NodesRegistryProxyNodeRegisteredIterator struct {
+	Event *NodesRegistryProxyNodeRegistered // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NodesRegistryProxyNodeRegisteredIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NodesRegistryProxyNodeRegistered)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NodesRegistryProxyNodeRegistered)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NodesRegistryProxyNodeRegisteredIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NodesRegistryProxyNodeRegisteredIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NodesRegistryProxyNodeRegistered represents a ProxyNodeRegistered event raised by the NodesRegistry contract.
+type NodesRegistryProxyNodeRegistered struct {
+	Proxy common.Address
+	Raw   types.Log // Blockchain specific contextual infos
+}
+
+// FilterProxyNodeRegistered is a free log retrieval operation binding the contract event 0x34093c616a3ab1dd56c3a4780155eb800bf5d1c3d024468ea10940d25fa9538d.
+//
+// Solidity: event ProxyNodeRegistered(address indexed proxy)
+func (_NodesRegistry *NodesRegistryFilterer) FilterProxyNodeRegistered(opts *bind.FilterOpts, proxy []common.Address) (*NodesRegistryProxyNodeRegisteredIterator, error) {
+
+	var proxyRule []interface{}
+	for _, proxyItem := range proxy {
+		proxyRule = append(proxyRule, proxyItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "ProxyNodeRegistered", proxyRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NodesRegistryProxyNodeRegisteredIterator{contract: _NodesRegistry.contract, event: "ProxyNodeRegistered", logs: logs, sub: sub}, nil
+}
+
+// WatchProxyNodeRegistered is a free log subscription operation binding the contract event 0x34093c616a3ab1dd56c3a4780155eb800bf5d1c3d024468ea10940d25fa9538d.
+//
+// Solidity: event ProxyNodeRegistered(address indexed proxy)
+func (_NodesRegistry *NodesRegistryFilterer) WatchProxyNodeRegistered(opts *bind.WatchOpts, sink chan<- *NodesRegistryProxyNodeRegistered, proxy []common.Address) (event.Subscription, error) {
+
+	var proxyRule []interface{}
+	for _, proxyItem := range proxy {
+		proxyRule = append(proxyRule, proxyItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "ProxyNodeRegistered", proxyRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NodesRegistryProxyNodeRegistered)
+				if err := _NodesRegistry.contract.UnpackLog(event, "ProxyNodeRegistered", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseProxyNodeRegistered is a log parse operation binding the contract event 0x34093c616a3ab1dd56c3a4780155eb800bf5d1c3d024468ea10940d25fa9538d.
+//
+// Solidity: event ProxyNodeRegistered(address indexed proxy)
+func (_NodesRegistry *NodesRegistryFilterer) ParseProxyNodeRegistered(log types.Log) (*NodesRegistryProxyNodeRegistered, error) {
+	event := new(NodesRegistryProxyNodeRegistered)
+	if err := _NodesRegistry.contract.UnpackLog(event, "ProxyNodeRegistered", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// NodesRegistryRoleAdminChangedIterator is returned from FilterRoleAdminChanged and is used to iterate over the raw logs and unpacked data for RoleAdminChanged events raised by the NodesRegistry contract.
+type NodesRegistryRoleAdminChangedIterator struct {
+	Event *NodesRegistryRoleAdminChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NodesRegistryRoleAdminChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NodesRegistryRoleAdminChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NodesRegistryRoleAdminChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NodesRegistryRoleAdminChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NodesRegistryRoleAdminChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NodesRegistryRoleAdminChanged represents a RoleAdminChanged event raised by the NodesRegistry contract.
+type NodesRegistryRoleAdminChanged struct {
+	Role              [32]byte
+	PreviousAdminRole [32]byte
+	NewAdminRole      [32]byte
+	Raw               types.Log // Blockchain specific contextual infos
+}
+
+// FilterRoleAdminChanged is a free log retrieval operation binding the contract event 0xbd79b86ffe0ab8e8776151514217cd7cacd52c909f66475c3af44e129f0b00ff.
+//
+// Solidity: event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)
+func (_NodesRegistry *NodesRegistryFilterer) FilterRoleAdminChanged(opts *bind.FilterOpts, role [][32]byte, previousAdminRole [][32]byte, newAdminRole [][32]byte) (*NodesRegistryRoleAdminChangedIterator, error) {
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+	var previousAdminRoleRule []interface{}
+	for _, previousAdminRoleItem := range previousAdminRole {
+		previousAdminRoleRule = append(previousAdminRoleRule, previousAdminRoleItem)
+	}
+	var newAdminRoleRule []interface{}
+	for _, newAdminRoleItem := range newAdminRole {
+		newAdminRoleRule = append(newAdminRoleRule, newAdminRoleItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "RoleAdminChanged", roleRule, previousAdminRoleRule, newAdminRoleRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NodesRegistryRoleAdminChangedIterator{contract: _NodesRegistry.contract, event: "RoleAdminChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchRoleAdminChanged is a free log subscription operation binding the contract event 0xbd79b86ffe0ab8e8776151514217cd7cacd52c909f66475c3af44e129f0b00ff.
+//
+// Solidity: event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)
+func (_NodesRegistry *NodesRegistryFilterer) WatchRoleAdminChanged(opts *bind.WatchOpts, sink chan<- *NodesRegistryRoleAdminChanged, role [][32]byte, previousAdminRole [][32]byte, newAdminRole [][32]byte) (event.Subscription, error) {
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+	var previousAdminRoleRule []interface{}
+	for _, previousAdminRoleItem := range previousAdminRole {
+		previousAdminRoleRule = append(previousAdminRoleRule, previousAdminRoleItem)
+	}
+	var newAdminRoleRule []interface{}
+	for _, newAdminRoleItem := range newAdminRole {
+		newAdminRoleRule = append(newAdminRoleRule, newAdminRoleItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "RoleAdminChanged", roleRule, previousAdminRoleRule, newAdminRoleRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NodesRegistryRoleAdminChanged)
+				if err := _NodesRegistry.contract.UnpackLog(event, "RoleAdminChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseRoleAdminChanged is a log parse operation binding the contract event 0xbd79b86ffe0ab8e8776151514217cd7cacd52c909f66475c3af44e129f0b00ff.
+//
+// Solidity: event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)
+func (_NodesRegistry *NodesRegistryFilterer) ParseRoleAdminChanged(log types.Log) (*NodesRegistryRoleAdminChanged, error) {
+	event := new(NodesRegistryRoleAdminChanged)
+	if err := _NodesRegistry.contract.UnpackLog(event, "RoleAdminChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// NodesRegistryRoleGrantedIterator is returned from FilterRoleGranted and is used to iterate over the raw logs and unpacked data for RoleGranted events raised by the NodesRegistry contract.
+type NodesRegistryRoleGrantedIterator struct {
+	Event *NodesRegistryRoleGranted // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NodesRegistryRoleGrantedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NodesRegistryRoleGranted)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NodesRegistryRoleGranted)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NodesRegistryRoleGrantedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NodesRegistryRoleGrantedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NodesRegistryRoleGranted represents a RoleGranted event raised by the NodesRegistry contract.
+type NodesRegistryRoleGranted struct {
+	Role    [32]byte
+	Account common.Address
+	Sender  common.Address
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterRoleGranted is a free log retrieval operation binding the contract event 0x2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d.
+//
+// Solidity: event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)
+func (_NodesRegistry *NodesRegistryFilterer) FilterRoleGranted(opts *bind.FilterOpts, role [][32]byte, account []common.Address, sender []common.Address) (*NodesRegistryRoleGrantedIterator, error) {
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "RoleGranted", roleRule, accountRule, senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NodesRegistryRoleGrantedIterator{contract: _NodesRegistry.contract, event: "RoleGranted", logs: logs, sub: sub}, nil
+}
+
+// WatchRoleGranted is a free log subscription operation binding the contract event 0x2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d.
+//
+// Solidity: event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)
+func (_NodesRegistry *NodesRegistryFilterer) WatchRoleGranted(opts *bind.WatchOpts, sink chan<- *NodesRegistryRoleGranted, role [][32]byte, account []common.Address, sender []common.Address) (event.Subscription, error) {
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "RoleGranted", roleRule, accountRule, senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NodesRegistryRoleGranted)
+				if err := _NodesRegistry.contract.UnpackLog(event, "RoleGranted", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseRoleGranted is a log parse operation binding the contract event 0x2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d.
+//
+// Solidity: event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)
+func (_NodesRegistry *NodesRegistryFilterer) ParseRoleGranted(log types.Log) (*NodesRegistryRoleGranted, error) {
+	event := new(NodesRegistryRoleGranted)
+	if err := _NodesRegistry.contract.UnpackLog(event, "RoleGranted", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// NodesRegistryRoleRevokedIterator is returned from FilterRoleRevoked and is used to iterate over the raw logs and unpacked data for RoleRevoked events raised by the NodesRegistry contract.
+type NodesRegistryRoleRevokedIterator struct {
+	Event *NodesRegistryRoleRevoked // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *NodesRegistryRoleRevokedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(NodesRegistryRoleRevoked)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(NodesRegistryRoleRevoked)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *NodesRegistryRoleRevokedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *NodesRegistryRoleRevokedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// NodesRegistryRoleRevoked represents a RoleRevoked event raised by the NodesRegistry contract.
+type NodesRegistryRoleRevoked struct {
+	Role    [32]byte
+	Account common.Address
+	Sender  common.Address
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterRoleRevoked is a free log retrieval operation binding the contract event 0xf6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b.
+//
+// Solidity: event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)
+func (_NodesRegistry *NodesRegistryFilterer) FilterRoleRevoked(opts *bind.FilterOpts, role [][32]byte, account []common.Address, sender []common.Address) (*NodesRegistryRoleRevokedIterator, error) {
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.FilterLogs(opts, "RoleRevoked", roleRule, accountRule, senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &NodesRegistryRoleRevokedIterator{contract: _NodesRegistry.contract, event: "RoleRevoked", logs: logs, sub: sub}, nil
+}
+
+// WatchRoleRevoked is a free log subscription operation binding the contract event 0xf6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b.
+//
+// Solidity: event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)
+func (_NodesRegistry *NodesRegistryFilterer) WatchRoleRevoked(opts *bind.WatchOpts, sink chan<- *NodesRegistryRoleRevoked, role [][32]byte, account []common.Address, sender []common.Address) (event.Subscription, error) {
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+
+	logs, sub, err := _NodesRegistry.contract.WatchLogs(opts, "RoleRevoked", roleRule, accountRule, senderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(NodesRegistryRoleRevoked)
+				if err := _NodesRegistry.contract.UnpackLog(event, "RoleRevoked", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseRoleRevoked is a log parse operation binding the contract event 0xf6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b.
+//
+// Solidity: event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)
+func (_NodesRegistry *NodesRegistryFilterer) ParseRoleRevoked(log types.Log) (*NodesRegistryRoleRevoked, error) {
+	event := new(NodesRegistryRoleRevoked)
+	if err := _NodesRegistry.contract.UnpackLog(event, "RoleRevoked", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

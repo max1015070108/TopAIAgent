@@ -205,7 +205,7 @@ var RegisterCommand = &cli.Command{
 		}
 
 		tx, err := conMan.NodesRegistry.RegisterNode(
-			auth, identifiersAddr[0], alias_identifiers_slice[0], gpuTypes[0], gpuNums[0],
+			auth, identifiersAddr[0], alias_identifiers_slice[0], gpuTypes[0], gpuNums[0], false,
 		)
 		if err != nil {
 			return err
